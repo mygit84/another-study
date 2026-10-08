@@ -1,0 +1,35 @@
+.region {
+  position: absolute;
+  inset-block-end: var(--space-4);
+  inset-inline: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.toast {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  color: var(--bg);
+  background: var(--text);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-window);
+
+  @include text-small;
+
+  font-weight: 600;
+
+  @include motion {
+    animation: toast-in 240ms var(--ease);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

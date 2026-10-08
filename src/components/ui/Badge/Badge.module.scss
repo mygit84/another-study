@@ -1,0 +1,22 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  color: var(--text);
+  white-space: nowrap;
+  border-radius: var(--radius-full);
+
+  @include text-xs;
+}
+
+.info {
+  background: var(--info-bg);
+}
+
+.accent {
+  background: var(--accent-soft);
+}
+
+.muted {
+  background: var(--surface-muted);
+}

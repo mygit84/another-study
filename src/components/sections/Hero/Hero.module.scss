@@ -1,0 +1,104 @@
+.hero {
+  padding-block: var(--space-12) var(--space-18);
+  overflow: hidden;
+
+  @include up(lg) {
+    padding-block: var(--space-18) var(--space-30);
+  }
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-12);
+  align-items: center;
+
+  @include container;
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: var(--space-12);
+  }
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-6);
+  justify-items: start;
+}
+
+.eyebrow {
+  padding: var(--space-1) var(--space-3);
+  font-weight: 600;
+  color: var(--text);
+  background: var(--info-bg);
+  border-radius: var(--radius-full);
+
+  @include text-small;
+}
+
+.title {
+  text-wrap: balance;
+
+  @include text-h1;
+}
+
+.subtitle {
+  max-width: 560px;
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  color: var(--text-muted);
+
+  @include text-small;
+
+  li {
+    display: inline-flex;
+    gap: var(--space-2);
+    align-items: center;
+  }
+
+  svg {
+    color: var(--primary);
+  }
+}
+
+.preview {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+}
+
+.blobA,
+.blobB {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.blobA {
+  inset-block-start: -40px;
+  inset-inline-end: -60px;
+  width: 280px;
+  height: 280px;
+  background: var(--accent-soft);
+}
+
+.blobB {
+  inset-block-end: -50px;
+  inset-inline-start: -40px;
+  width: 220px;
+  height: 220px;
+  background: var(--info-bg);
+}

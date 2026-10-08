@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NutriOS — персональный планировщик питания</title>
+    <meta
+      name="description"
+      content="NutriOS помогает планировать питание под ваши цели, вкусы, ограничения и расписание: меню на неделю, список покупок и объяснения к каждому блюду. Wellness-сервис, не медицинский."
+    />
+    <meta name="theme-color" content="#FBF8F3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141917" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- TODO: домен — добавить <link rel="canonical"> и абсолютные URL для og:url / og:image -->
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="NutriOS" />
+    <meta property="og:title" content="NutriOS — персональный планировщик питания" />
+    <meta
+      property="og:description"
+      content="Меню на неделю, список покупок и объяснения к каждому блюду — под ваши цели, вкусы и расписание. Без диет и давления."
+    />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NutriOS — персональный планировщик питания" />
+    <meta
+      name="twitter:description"
+      content="Меню на неделю, список покупок и объяснения к каждому блюду. Wellness-сервис, не медицинский."
+    />
+    <meta name="twitter:image" content="/og.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "NutriOS",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "ru",
+        "description": "Персональный планировщик питания: меню на неделю, список покупок и объяснения к каждому блюду. Wellness-сервис, не медицинский.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB", "description": "Первый план — бесплатно" }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

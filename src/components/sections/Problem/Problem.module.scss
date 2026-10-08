@@ -1,0 +1,38 @@
+.grid {
+  display: grid;
+  gap: var(--space-4);
+
+  @include up(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include up(lg) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+.card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  height: 100%;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: var(--text);
+  background: var(--accent-soft);
+  border-radius: var(--radius-md);
+}
+
+.title {
+  @include text-h3;
+}
+
+.text {
+  color: var(--text-muted);
+}

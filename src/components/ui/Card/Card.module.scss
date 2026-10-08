@@ -1,0 +1,5 @@
+.card {
+  @include card;
+
+  padding: var(--space-6);
+}

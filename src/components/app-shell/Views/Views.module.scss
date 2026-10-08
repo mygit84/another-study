@@ -1,0 +1,509 @@
+.head {
+  display: grid;
+  gap: var(--space-1);
+  margin-block-end: var(--space-4);
+}
+
+.headRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  justify-content: space-between;
+
+  .head {
+    margin-block-end: var(--space-4);
+  }
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+
+  @include text-small;
+}
+
+.time {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+  color: var(--text-muted);
+
+  @include text-xs;
+}
+
+.tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.ghostBtn {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+  min-height: 32px;
+  padding: var(--space-1) var(--space-3);
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  transition: border-color var(--duration) var(--ease);
+
+  @include text-xs;
+  @include focus-ring;
+
+  &:hover {
+    border-color: var(--primary);
+  }
+}
+
+.selected {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+/* Today */
+.mealList {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.meal {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration) var(--ease);
+
+  @include up(xl) {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+
+.mealInfo {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.slot {
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  @include text-xs;
+}
+
+.mealName {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.375rem;
+
+  @include motion {
+    animation: swap-in 280ms var(--ease);
+  }
+}
+
+.mealActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+@keyframes swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* Week */
+.weekScroll {
+  margin-inline: calc(var(--space-4) * -1);
+  padding-inline: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+}
+
+.weekGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(104px, 1fr));
+  gap: var(--space-2);
+  min-width: 760px;
+  padding-block-end: var(--space-2);
+}
+
+.day {
+  display: grid;
+  grid-template-rows: auto repeat(3, 1fr);
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  scroll-snap-align: start;
+  transition: background-color var(--duration) var(--ease);
+}
+
+.dayToday {
+  background: var(--info-bg);
+}
+
+.dayGuests {
+  background: var(--accent-soft);
+}
+
+.dayHead {
+  display: grid;
+  gap: 2px;
+  min-height: 34px;
+  font-weight: 700;
+
+  @include text-small;
+}
+
+.dayMark {
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+  font-weight: 500;
+  color: var(--text-muted);
+
+  @include text-xs;
+}
+
+.cell {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-height: 72px;
+  padding: var(--space-2);
+  text-align: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--duration) var(--ease);
+
+  @include text-xs;
+  @include focus-ring;
+
+  &:hover {
+    border-color: var(--primary);
+  }
+}
+
+.cellGuests {
+  border-color: var(--accent);
+}
+
+.cellSlot {
+  color: var(--text-muted);
+}
+
+/* Shopping */
+.counter {
+  padding: 2px var(--space-3);
+  font-weight: 600;
+  background: var(--info-bg);
+  border-radius: var(--radius-full);
+
+  @include text-xs;
+}
+
+.groups {
+  display: grid;
+  gap: var(--space-4);
+
+  @include up(xl) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.group {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.groupTitle {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin-block-end: var(--space-2);
+  padding: 0;
+  font-weight: 700;
+
+  @include text-small;
+}
+
+.item {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: 36px;
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+
+  @include text-small;
+
+  &:hover {
+    background: var(--surface-muted);
+  }
+
+  input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--primary);
+  }
+
+  label {
+    flex: 1;
+    cursor: pointer;
+  }
+}
+
+.itemDone label {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.qty {
+  color: var(--text-muted);
+}
+
+/* Context */
+.contextGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.contextCard {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.contextIcon {
+  color: var(--primary);
+}
+
+.switchRow {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  margin-block-start: var(--space-4);
+  padding: var(--space-4);
+  background: var(--accent-soft);
+  border-radius: var(--radius-md);
+}
+
+.switchLabel {
+  font-weight: 600;
+  cursor: pointer;
+
+  @include text-small;
+}
+
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 26px;
+  margin: 0;
+  background: var(--border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--duration) var(--ease);
+  appearance: none;
+
+  @include focus-ring;
+
+  &::after {
+    position: absolute;
+    inset-block-start: 3px;
+    inset-inline-start: 3px;
+    width: 20px;
+    height: 20px;
+    content: '';
+    background: var(--surface);
+    border-radius: var(--radius-full);
+    transition: transform var(--duration) var(--ease);
+  }
+
+  &:checked {
+    background: var(--primary);
+  }
+
+  &:checked::after {
+    transform: translateX(18px);
+  }
+}
+
+/* History */
+.hint {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  margin-block-end: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--info-bg);
+  border-radius: var(--radius-md);
+
+  @include text-small;
+}
+
+.historyCols {
+  display: grid;
+  gap: var(--space-4);
+
+  @include up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.simpleList {
+  display: grid;
+  gap: var(--space-2);
+
+  li {
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+
+    @include text-small;
+  }
+}
+
+/* Learn */
+.learnList {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.learnCard {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.learnBtn {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-4);
+  font-weight: 600;
+  text-align: start;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-md);
+
+  @include text-small;
+  @include focus-ring;
+}
+
+.learnMore {
+  flex-shrink: 0;
+  color: var(--primary);
+
+  @include text-xs;
+}
+
+.learnText {
+  padding: 0 var(--space-4) var(--space-4);
+  color: var(--text-muted);
+
+  @include text-small;
+}
+
+/* Profile */
+.profileGrid {
+  display: grid;
+  gap: var(--space-4);
+
+  @include up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.profileBlock {
+  padding: var(--space-4);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  padding: var(--space-1) var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+
+  @include text-xs;
+}
+
+/* Recipes */
+.recipeGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+
+  @include up(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include up(xl) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.recipe {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.recipeArt {
+  display: grid;
+  place-items: center;
+  height: 64px;
+  color: var(--primary);
+  background: var(--info-bg);
+  border-radius: var(--radius-sm);
+}

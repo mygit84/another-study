@@ -1,0 +1,34 @@
+.section {
+  padding-block: var(--space-18);
+
+  @include container;
+
+  @include up(lg) {
+    padding-block: var(--space-30);
+  }
+}
+
+.box {
+  display: grid;
+  gap: var(--space-6);
+  justify-items: center;
+  padding: var(--space-12) var(--space-6);
+  text-align: center;
+  background: var(--info-bg);
+  border-radius: var(--radius-lg);
+
+  @include up(lg) {
+    padding: var(--space-18) var(--space-12);
+  }
+}
+
+.title {
+  text-wrap: balance;
+
+  @include text-h2;
+}
+
+.text {
+  max-width: 560px;
+  color: var(--text-muted);
+}

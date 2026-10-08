@@ -1,0 +1,62 @@
+.steps {
+  position: relative;
+  display: grid;
+  gap: var(--space-8);
+
+  @include up(lg) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-12);
+  }
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2) var(--space-4);
+
+  @include up(lg) {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-3);
+  }
+}
+
+// Соединительная линия между номерами на desktop
+.step:not(:last-child)::after {
+  @include up(lg) {
+    position: absolute;
+    inset-block-start: 28px;
+    inset-inline: 72px calc(var(--space-12) * -1 + var(--space-4));
+    height: 2px;
+    content: '';
+    background: repeating-linear-gradient(90deg, var(--border) 0 8px, transparent 8px 14px);
+  }
+}
+
+.num {
+  display: grid;
+  grid-row: span 2;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--on-primary);
+  background: var(--primary);
+  border-radius: var(--radius-full);
+
+  @include up(lg) {
+    grid-row: auto;
+    margin-block-end: var(--space-3);
+  }
+}
+
+.title {
+  align-self: end;
+
+  @include text-h3;
+}
+
+.text {
+  color: var(--text-muted);
+}

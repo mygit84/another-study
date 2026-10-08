@@ -1,0 +1,16 @@
+.wrap {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.center {
+  align-items: center;
+}
+
+.note {
+  color: var(--text-muted);
+
+  @include text-small;
+}

@@ -1,0 +1,19 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "color-no-hex": true,
+    "color-named": "never",
+    "declaration-no-important": true,
+    "max-nesting-depth": 3,
+    "selector-max-id": 0,
+    "scss/load-no-partial-leading-underscore": null,
+    "scss/at-extend-no-missing-placeholder": true,
+    "selector-class-pattern": "^[a-z][a-zA-Z0-9]+$",
+    "at-rule-disallowed-list": ["import", "extend"],
+    "selector-pseudo-class-no-unknown": [true, { "ignorePseudoClasses": ["global"] }]
+  },
+  "overrides": [
+    { "files": ["src/styles/_tokens.scss"], "rules": { "color-no-hex": null } },
+    { "files": ["src/styles/_mixins.scss", "src/styles/global.scss"], "rules": { "declaration-no-important": null } }
+  ]
+}

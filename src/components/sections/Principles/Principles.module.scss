@@ -1,0 +1,32 @@
+.grid {
+  display: grid;
+  gap: var(--space-4);
+
+  @include up(lg) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+.card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+
+  @include card;
+
+  padding: var(--space-8);
+  border-block-start: 3px solid var(--primary);
+}
+
+.icon {
+  color: var(--primary);
+}
+
+.title {
+  @include text-h3;
+}
+
+.text {
+  color: var(--text-muted);
+}
