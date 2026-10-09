@@ -1,0 +1,16 @@
+{
+  "name": "wellness-agent",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx index.ts"
+  },
+  "dependencies": {
+    "@openai/agents": "^0.20.0",
+    "openai": "^7.31.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15"
+  }
+}
