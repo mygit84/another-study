@@ -40,17 +40,20 @@ const MAX_ROUNDS = 3;
 
 const PROXYAPI_URL = 'https://api.proxyapi.ru/v1';
 
-// Подключаем ProxyAPI как OpenAI-совместимый провайдер
-process.loadEnvFile(new URL('.env.local', import.meta.url));
-const apiKey = process.env.PROXYAPI_API_KEY;
-if (!apiKey) throw new Error('В agent/.env.local не задан PROXYAPI_API_KEY');
-setDefaultOpenAIClient(new OpenAI({ baseURL: PROXYAPI_URL, apiKey }));
-setOpenAIAPI('chat_completions');
-setTracingDisabled(true);
-
-const model = process.env.PROXYAPI_MODEL ?? 'deepseek/deepseek-v4.1-flash';
-const coach = new Agent({ name: 'Health Coach', instructions: COACH_PROMPT, model });
-const reviewer = new Agent({ name: 'Safety Reviewer', instructions: REVIEWER_PROMPT, model });
+// Подключаем ProxyAPI как OpenAI-совместимый провайдер; возвращаем имя модели
+function connectProvider(): string {
+  try {
+    process.loadEnvFile(new URL('.env.local', import.meta.url));
+  } catch {
+    throw new Error('Не найден agent/.env.local');
+  }
+  const apiKey = process.env.PROXYAPI_API_KEY;
+  if (!apiKey) throw new Error('В agent/.env.local не задан PROXYAPI_API_KEY');
+  setDefaultOpenAIClient(new OpenAI({ baseURL: PROXYAPI_URL, apiKey }));
+  setOpenAIAPI('chat_completions');
+  setTracingDisabled(true);
+  return process.env.PROXYAPI_MODEL ?? 'deepseek/deepseek-v4.1-flash';
+}
 
 const ReviewSchema = z.object({
   verdict: z.enum(['approve', 'revise', 'needs_human_professional']),
@@ -76,7 +79,7 @@ function parseReview(text: string): Review | null {
 }
 
 // Невалидный JSON — один повторный запрос
-async function review(input: string): Promise<Review> {
+async function review(reviewer: Agent, input: string): Promise<Review> {
   const first = parseReview(await ask(reviewer, input));
   if (first) return first;
   console.warn('Ревьюер вернул невалидный JSON, повторяю запрос...');
@@ -97,6 +100,10 @@ async function main() {
     return;
   }
 
+  const model = connectProvider();
+  const coach = new Agent({ name: 'Health Coach', instructions: COACH_PROMPT, model });
+  const reviewer = new Agent({ name: 'Safety Reviewer', instructions: REVIEWER_PROMPT, model });
+
   // 2. Профиль и дневник — контекст для обоих агентов
   const [profile, log] = await Promise.all([readLocal('profile.md'), readLocal('log.md')]);
   const context = `${profile}\n\n${log}`;
@@ -111,7 +118,7 @@ async function main() {
     plan = await ask(coach, `Задача: ${task}\n\n${context}${feedback}`);
 
     // 4. Ревьюер проверяет план
-    const result = await review(`Задача пользователя: ${task}\n\n${context}\n\nПлан коуча:\n${plan}`);
+    const result = await review(reviewer, `Задача пользователя: ${task}\n\n${context}\n\nПлан коуча:\n${plan}`);
     console.log(`\nРаунд ${round}: verdict=${result.verdict}, score=${result.score}`);
     result.issues.forEach((issue) => console.log(`  - ${issue}`));
 
