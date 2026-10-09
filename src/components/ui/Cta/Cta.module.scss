@@ -10,7 +10,20 @@
 }
 
 .note {
-  color: var(--text-muted);
+  padding-inline-start: var(--space-2);
+  color: var(--text-subtle);
 
   @include text-small;
+}
+
+.center .note {
+  padding-inline-start: 0;
+}
+
+.noteOnDeep {
+  color: var(--on-deep-muted);
+}
+
+.button {
+  max-width: 100%;
 }

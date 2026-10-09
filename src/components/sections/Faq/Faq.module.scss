@@ -1,18 +1,10 @@
 .list {
   display: grid;
-  gap: var(--space-3);
-  max-width: 800px;
-  margin-inline: auto;
+  border-block-start: 1px solid var(--border);
 }
 
 .item {
-  @include card;
-
-  transition: border-color var(--duration) var(--ease);
-
-  &[open] {
-    border-color: var(--primary);
-  }
+  border-block-end: 1px solid var(--border);
 }
 
 .question {
@@ -20,29 +12,45 @@
   gap: var(--space-4);
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-6);
-  font-weight: 600;
+  min-height: 44px;
+  padding-block: var(--space-4);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  line-height: 1.4;
   list-style: none;
   cursor: pointer;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
 
   @include focus-ring;
+
+  @include up(lg) {
+    padding-block: var(--space-5);
+    font-size: 1.1875rem;
+  }
 
   &::-webkit-details-marker {
     display: none;
   }
-}
 
-.icon {
-  color: var(--primary);
-  transition: transform var(--duration) var(--ease);
-
-  .item[open] & {
-    transform: rotate(45deg);
+  svg {
+    color: var(--primary);
   }
 }
 
+.iconClose,
+.item[open] .iconOpen {
+  display: none;
+}
+
+.item[open] .iconClose {
+  display: block;
+}
+
 .answer {
-  padding: 0 var(--space-6) var(--space-6);
+  padding-block-end: var(--space-5);
   color: var(--text-muted);
+
+  @include up(lg) {
+    padding-block-end: var(--space-6);
+  }
 }

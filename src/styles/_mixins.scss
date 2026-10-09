@@ -30,6 +30,14 @@
   }
 }
 
+@mixin section-block {
+  padding-block: var(--space-14);
+
+  @include up(lg) {
+    padding-block: var(--space-26);
+  }
+}
+
 @mixin motion {
   @media (prefers-reduced-motion: no-preference) {
     @content;

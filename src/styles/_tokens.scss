@@ -1,56 +1,143 @@
 @mixin tokens {
   :root {
-    --bg: #fbf8f3;
+    // Основа: светлый шалфей + тёмно-зелёные «чернила»
+    --bg: #f3f5ee;
     --surface: #fff;
-    --surface-muted: #f3eee6;
-    --text: #1f2a24;
-    --text-muted: #5b6660;
-    --border: #e4ddd2;
-    --primary: #2f7d5b;
-    --primary-hover: #276a4d;
+    --surface-muted: #f3f5ee;
+    --surface-app: #fbfcf8;
+    --text: #17251d;
+    --text-muted: #3e4f44;
+    --text-subtle: #4a5a50;
+    --border: #dce2d3;
+    --border-soft: #e6ebdf;
+
+    // Бренд-зелёный: ссылки, галочки, фокус
+    --primary: #2f5d3a;
+    --primary-hover: #24452d;
     --on-primary: #fff;
-    --accent: #e9a23b;
-    --accent-soft: #fbeedb;
-    --info-bg: #eaf3ee;
-    --header-bg: rgb(251 248 243 / 72%);
-    --overlay: rgb(31 42 36 / 45%);
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
+
+    // Главный CTA — терракота
+    --cta: #c8471c;
+    --cta-hover: #a93a15;
+    --on-cta: #fff;
+
+    // Контрастные кнопки, чипы, активные вкладки
+    --contrast: #17251d;
+    --contrast-hover: #2a3d31;
+    --on-contrast: #fff;
+
+    // Тёмные секции (демо, финальный CTA)
+    --deep: #17251d;
+    --on-deep: #fff;
+    --on-deep-text: #e9efe2;
+    --on-deep-muted: #c9d4c4;
+    --on-deep-accent: #d6e8b4;
+
+    // Пастельные плашки
+    --lime: #d6e8b4;
+    --on-lime: #24452d;
+    --peach: #f6d9c9;
+    --on-peach: #7a2e12;
+    --butter: #f7e7a8;
+    --on-butter: #3d3108;
+    --accent: #c8471c;
+    --accent-soft: #f6d9c9;
+    --info-bg: #eef3e6;
+    --header-bg: rgb(243 245 238 / 88%);
+    --overlay: rgb(23 37 29 / 45%);
+
+    // Фоновое «сияние» в hero
+    --aurora-1: rgb(214 232 180 / 90%);
+    --aurora-2: rgb(246 217 201 / 80%);
+    --aurora-3: rgb(247 231 168 / 70%);
+    --aurora-dot: rgb(47 93 58 / 14%);
+
+    // Декоративные фоны секций (src/components/backgrounds)
+    --bg-grid-line: rgb(23 37 29 / 7%);
+    --bg-grid-cell: rgb(47 93 58 / 9%);
+    --bg-ripple: rgb(47 93 58 / 22%);
+    --bg-glow: rgb(214 232 180 / 70%);
+    --bg-glow-warm: rgb(240 135 90 / 55%);
+    --bg-line: rgb(233 239 226 / 7%);
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    --radius-2xl: 40px;
     --radius-full: 999px;
-    --shadow-window: 0 12px 40px rgb(31 42 36 / 12%);
-    --shadow-header: 0 1px 12px rgb(31 42 36 / 8%);
+    --shadow-window: 0 40px 80px -30px rgb(0 0 0 / 50%);
+    --shadow-card: 0 30px 60px -30px rgb(23 37 29 / 25%);
+    --shadow-pop: 0 20px 40px -20px rgb(23 37 29 / 50%);
+    --shadow-pill: 0 10px 30px rgb(23 37 29 / 18%);
+    --shadow-header: 0 1px 12px rgb(23 37 29 / 8%);
     --space-1: 4px;
     --space-2: 8px;
     --space-3: 12px;
     --space-4: 16px;
+    --space-5: 20px;
     --space-6: 24px;
+    --space-7: 28px;
     --space-8: 32px;
+    --space-10: 40px;
     --space-12: 48px;
+    --space-14: 56px;
+    --space-16: 64px;
     --space-18: 72px;
+    --space-26: 104px;
     --space-30: 120px;
     --font-sans: 'Manrope Variable', system-ui, sans-serif;
+    --font-display: 'Unbounded Variable', 'Manrope Variable', system-ui, sans-serif;
     --ease: cubic-bezier(0.2, 0, 0, 1);
     --duration: 200ms;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #141917;
-      --surface: #1c2320;
-      --surface-muted: #232b27;
-      --text: #eef2ef;
-      --text-muted: #a6b0aa;
-      --border: #2f3833;
-      --primary: #5dbb8e;
-      --primary-hover: #74c9a0;
-      --on-primary: #0f1a14;
-      --accent: #f0b65c;
-      --accent-soft: #3a2f1d;
-      --info-bg: #1f2e27;
-      --header-bg: rgb(20 25 23 / 72%);
+      --bg: #111814;
+      --surface: #19221c;
+      --surface-muted: #1f2a23;
+      --surface-app: #161f19;
+      --text: #e9efe2;
+      --text-muted: #b9c5ba;
+      --text-subtle: #a3b0a5;
+      --border: #2d3a31;
+      --border-soft: #26322a;
+      --primary: #a9d18a;
+      --primary-hover: #bee0a3;
+      --on-primary: #10180f;
+      --cta: #f0875a;
+      --cta-hover: #f49d76;
+      --on-cta: #1a0a03;
+      --contrast: #e9efe2;
+      --contrast-hover: #d6e8b4;
+      --on-contrast: #17251d;
+      --deep: #0a0f0c;
+      --on-deep: #fff;
+      --on-deep-text: #e9efe2;
+      --on-deep-muted: #a9b6aa;
+      --on-deep-accent: #d6e8b4;
+      --lime: #26361f;
+      --on-lime: #d6e8b4;
+      --peach: #3d2418;
+      --on-peach: #f6c7af;
+      --butter: #3a3214;
+      --on-butter: #f2de8e;
+      --accent: #f0875a;
+      --accent-soft: #3d2418;
+      --info-bg: #1c2a21;
+      --header-bg: rgb(17 24 20 / 88%);
       --overlay: rgb(0 0 0 / 60%);
-      --shadow-window: 0 12px 40px rgb(0 0 0 / 40%);
+      --aurora-1: rgb(169 209 138 / 22%);
+      --aurora-2: rgb(240 135 90 / 18%);
+      --aurora-3: rgb(242 222 142 / 12%);
+      --aurora-dot: rgb(233 239 226 / 8%);
+      --bg-grid-line: rgb(233 239 226 / 6%);
+      --bg-grid-cell: rgb(169 209 138 / 9%);
+      --bg-ripple: rgb(214 232 180 / 18%);
+      --shadow-window: 0 40px 80px -30px rgb(0 0 0 / 70%);
+      --shadow-card: 0 30px 60px -30px rgb(0 0 0 / 60%);
+      --shadow-pop: 0 20px 40px -20px rgb(0 0 0 / 70%);
+      --shadow-pill: 0 10px 30px rgb(0 0 0 / 40%);
       --shadow-header: 0 1px 12px rgb(0 0 0 / 30%);
     }
   }

@@ -1,0 +1,108 @@
+/*
+ * Tailwind CSS v4 — только для декоративных фонов (src/components/backgrounds).
+ * Без preflight: базовые стили задаёт global.scss. Всё лежит в CSS-слоях,
+ * поэтому неслоёные SCSS Modules и токены всегда побеждают.
+ */
+@layer theme, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@theme inline {
+  --color-aurora-1: var(--aurora-1);
+  --color-aurora-2: var(--aurora-2);
+  --color-aurora-3: var(--aurora-3);
+  --color-aurora-dot: var(--aurora-dot);
+  --color-grid-line: var(--bg-grid-line);
+  --color-grid-cell: var(--bg-grid-cell);
+  --color-ripple: var(--bg-ripple);
+  --color-glow: var(--bg-glow);
+  --color-glow-warm: var(--bg-glow-warm);
+  --color-line: var(--bg-line);
+
+  --animate-aurora-a: aurora-a 22s ease-in-out infinite alternate;
+  --animate-aurora-b: aurora-b 26s ease-in-out infinite alternate;
+  --animate-aurora-c: aurora-c 30s ease-in-out infinite alternate;
+  --animate-cell: cell 6s ease-in-out infinite;
+  --animate-ripple: ripple 3.4s ease infinite;
+  --animate-beam: beam 9s linear infinite;
+  --animate-meteor: meteor 6s linear infinite;
+  --animate-spotlight: spotlight 2.4s ease 0.3s 1 both;
+
+  @keyframes aurora-a {
+    to {
+      transform: translate3d(18%, 12%, 0) scale(1.15);
+    }
+  }
+
+  @keyframes aurora-b {
+    to {
+      transform: translate3d(-22%, 18%, 0) scale(0.9);
+    }
+  }
+
+  @keyframes aurora-c {
+    to {
+      transform: translate3d(-15%, -20%, 0) scale(1.2);
+    }
+  }
+
+  @keyframes cell {
+    0%,
+    100% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes ripple {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(0.92);
+    }
+  }
+
+  @keyframes beam {
+    from {
+      transform: translateY(-100%);
+    }
+
+    to {
+      transform: translateY(400%);
+    }
+  }
+
+  @keyframes meteor {
+    0% {
+      opacity: 1;
+      transform: rotate(215deg) translateX(0);
+    }
+
+    70% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: rotate(215deg) translateX(-600px);
+    }
+  }
+
+  @keyframes spotlight {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}

@@ -1,5 +1,21 @@
 .cta {
   display: flex;
-  justify-content: center;
-  margin-block-start: var(--space-12);
+  margin-block-start: var(--space-6);
+
+  @include up(lg) {
+    margin-block-start: var(--space-10);
+  }
+}
+
+// На телефоне кнопка на всю ширину
+.ctaInner {
+  align-items: stretch;
+  width: 100%;
+  text-align: center;
+
+  @include up(md) {
+    align-items: flex-start;
+    width: auto;
+    text-align: start;
+  }
 }

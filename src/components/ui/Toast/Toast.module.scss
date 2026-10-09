@@ -13,14 +13,18 @@
   gap: var(--space-2);
   align-items: center;
   padding: var(--space-2) var(--space-4);
-  color: var(--bg);
-  background: var(--text);
+  color: var(--on-contrast);
+  background: var(--contrast);
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-window);
+  box-shadow: var(--shadow-pill);
 
   @include text-small;
 
-  font-weight: 600;
+  font-weight: 700;
+
+  svg {
+    color: var(--lime);
+  }
 
   @include motion {
     animation: toast-in 240ms var(--ease);

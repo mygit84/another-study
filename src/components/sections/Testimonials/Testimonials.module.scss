@@ -1,40 +1,63 @@
 .grid {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
 
   @include up(lg) {
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
+    gap: var(--space-5);
   }
 }
 
 .card {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  justify-content: space-between;
   height: 100%;
-  margin: 0;
-  padding: var(--space-8);
+  padding: var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
 
-  @include card;
-}
-
-.mark {
-  color: var(--accent);
+  @include up(lg) {
+    gap: var(--space-6);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+  }
 }
 
 .quote {
   font-size: 1.0625rem;
-  line-height: 1.625rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-wrap: pretty;
+  quotes: '«' '»';
+
+  &::before {
+    content: open-quote;
+  }
+
+  &::after {
+    content: close-quote;
+  }
+
+  @include up(lg) {
+    font-size: 1.25rem;
+  }
 }
 
 .author {
   display: flex;
   gap: var(--space-3);
   align-items: center;
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--text-subtle);
 
   @include text-small;
+
+  @include up(lg) {
+    font-size: 0.9375rem;
+  }
 }
 
 .avatar {
@@ -42,8 +65,9 @@
   place-items: center;
   width: 40px;
   height: 40px;
-  font-weight: 700;
-  color: var(--text);
-  background: var(--accent-soft);
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--on-lime);
+  background: var(--lime);
   border-radius: var(--radius-full);
 }

@@ -7,7 +7,7 @@
 
 ## 0. TL;DR для агента
 
-Собери одностраничный адаптивный лендинг NutriOS из 10 секций на **Vite + React + TypeScript**, стили — **SCSS (CSS Modules)**, без Tailwind и CSS-in-JS. Главный визуальный элемент — интерактивное демо будущего приложения (app-shell) на статических mock-данных. Бэкенда нет. Весь текст — на русском, лежит в одном файле контента. Медицинских обещаний в коде, тексте, alt-атрибутах и мета-тегах быть не должно; это проверяется автоматическим скриптом в CI.
+Собери одностраничный адаптивный лендинг NutriOS из 10 секций на **Vite + React + TypeScript**, стили — **SCSS (CSS Modules)** плюс Tailwind CSS для декоративных фонов, без CSS-in-JS. Главный визуальный элемент — интерактивное демо будущего приложения (app-shell) на статических mock-данных. Бэкенда нет. Весь текст — на русском, лежит в одном файле контента. Медицинских обещаний в коде, тексте, alt-атрибутах и мета-тегах быть не должно; это проверяется автоматическим скриптом в CI.
 
 ---
 
@@ -66,7 +66,7 @@
 | UI | React 18+ | Функциональные компоненты, хуки |
 | Пре-рендер | `vite-react-ssg` (одна страница `/`) | Нужен для SEO: в `dist/index.html` должна лежать готовая разметка всех секций, а не пустой `<div id="root">`. Клиент гидрирует её. Если `vite-react-ssg` не подходит — свой `scripts/prerender.ts` на `react-dom/server` (`renderToString` → вставка в `dist/index.html`, на клиенте `hydrateRoot`) |
 | Язык | TypeScript, `strict: true` | |
-| Стили | SCSS (`sass`) + CSS Modules (`*.module.scss`) | Токены — CSS custom properties, правила в §8.6. **Tailwind, styled-components, emotion — запрещены** |
+| Стили | SCSS (`sass`) + CSS Modules (`*.module.scss`) | Токены — CSS custom properties, правила в §8.6. Tailwind CSS v4 (без preflight) допустим для декоративных анимированных фонов; цвета — только через токены. **styled-components, emotion — запрещены** |
 | Компоненты | Собственные, без UI-китов | Допустим `lucide-react` для иконок |
 | Анимации | CSS-переходы и `@keyframes`; `framer-motion` — только в демо, через `React.lazy` | Уважать `prefers-reduced-motion` |
 | Шрифт | `Manrope` (или `Inter`) через `@fontsource-variable/manrope`, подмножества `cyrillic` + `latin` | Self-hosted, без Google Fonts CDN; `font-display: swap` |
@@ -632,7 +632,7 @@ $breakpoints: (sm: 375px, md: 768px, lg: 1024px, xl: 1440px);
 - [ ] Playwright e2e покрывает: загрузку страницы, все CTA, вкладки демо, FAQ, waitlist-форму.
 - [ ] `npm run build` (TypeScript + Vite + пре-рендер) проходит без ошибок и предупреждений.
 - [ ] `dist/index.html` содержит текст H1 и всех заголовков секций до выполнения JS; при гидрации нет hydration mismatch-предупреждений в консоли.
-- [ ] Стили — только SCSS Modules; в проекте нет зависимостей Tailwind, styled-components, emotion.
+- [ ] Стили — SCSS Modules, Tailwind — только для декоративных фонов; в проекте нет зависимостей styled-components, emotion.
 - [ ] `stylelint` проходит; hex-цвета есть только в `_tokens.scss`; нет `@import` и `@extend`.
 
 ---

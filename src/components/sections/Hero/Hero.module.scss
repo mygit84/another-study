@@ -1,67 +1,87 @@
 .hero {
-  padding-block: var(--space-12) var(--space-18);
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--space-8) var(--space-14);
   overflow: hidden;
 
   @include up(lg) {
-    padding-block: var(--space-18) var(--space-30);
+    padding-block: var(--space-18) var(--space-26);
   }
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
   display: grid;
-  gap: var(--space-12);
+  gap: var(--space-10);
   align-items: center;
 
   @include container;
 
   @include up(lg) {
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: var(--space-12);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-16);
   }
 }
 
 .copy {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-5);
   justify-items: start;
+
+  @include up(lg) {
+    gap: var(--space-7);
+  }
 }
 
 .eyebrow {
-  padding: var(--space-1) var(--space-3);
-  font-weight: 600;
-  color: var(--text);
-  background: var(--info-bg);
+  padding: var(--space-2) var(--space-4);
+  font-weight: 700;
+  color: var(--on-lime);
+  letter-spacing: 0.02em;
+  background: var(--lime);
   border-radius: var(--radius-full);
 
   @include text-small;
 }
 
+// Размер привязан к ширине колонки: самое длинное слово («подстраивается»)
+// в Unbounded занимает ~10em и не должно заезжать под превью справа.
 .title {
   text-wrap: balance;
+  overflow-wrap: break-word;
 
   @include text-h1;
+
+  font-size: clamp(1.75rem, 8.6vw, 2.125rem);
+
+  @include up(md) {
+    font-size: clamp(2.125rem, 5.4vw, 3rem);
+  }
+
+  @include up(lg) {
+    font-size: clamp(2.25rem, 4.6vw - 0.5rem, 3.25rem);
+  }
 }
 
 .subtitle {
   max-width: 560px;
   color: var(--text-muted);
   text-wrap: pretty;
-}
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  align-items: flex-start;
+  @include text-lead;
 }
 
 .highlights {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-6);
-  color: var(--text-muted);
+  display: grid;
+  gap: var(--space-2);
+  font-weight: 600;
 
-  @include text-small;
+  @include up(md) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+  }
 
   li {
     display: inline-flex;
@@ -74,31 +94,37 @@
   }
 }
 
-.preview {
-  position: relative;
-  isolation: isolate;
-  min-width: 0;
+.actions {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: center;
+  width: 100%;
+
+  @include up(md) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-7);
+    align-items: flex-start;
+    width: auto;
+    padding-block-start: var(--space-1);
+  }
 }
 
-.blobA,
-.blobB {
-  position: absolute;
-  z-index: -1;
-  border-radius: 50%;
+// На телефоне CTA на всю ширину, микротекст по центру
+.cta {
+  align-items: stretch;
+  width: 100%;
+  text-align: center;
+
+  @include up(md) {
+    align-items: flex-start;
+    width: auto;
+    text-align: start;
+  }
 }
 
-.blobA {
-  inset-block-start: -40px;
-  inset-inline-end: -60px;
-  width: 280px;
-  height: 280px;
-  background: var(--accent-soft);
-}
-
-.blobB {
-  inset-block-end: -50px;
-  inset-inline-start: -40px;
-  width: 220px;
-  height: 220px;
-  background: var(--info-bg);
+.how {
+  @include up(md) {
+    padding-block-start: var(--space-2);
+  }
 }

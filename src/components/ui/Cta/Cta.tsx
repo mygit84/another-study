@@ -13,12 +13,24 @@ interface CtaProps {
   label: string
   note?: string
   size?: 'md' | 'lg'
+  variant?: 'primary' | 'contrast'
   align?: 'start' | 'center'
+  /** onDeep — микротекст на тёмной секции */
+  tone?: 'default' | 'onDeep'
   className?: string
 }
 
 /** Primary CTA: ссылка на онбординг или кнопка формы ожидания — по config.ctaMode. */
-export function Cta({ id, label, note, size = 'lg', align = 'start', className }: CtaProps) {
+export function Cta({
+  id,
+  label,
+  note,
+  size = 'lg',
+  variant = 'primary',
+  align = 'start',
+  tone = 'default',
+  className,
+}: CtaProps) {
   const { open } = useWaitlist()
   const isWaitlist = config.ctaMode === 'waitlist'
   const text = isWaitlist ? content.cta.waitlist : label
@@ -27,6 +39,8 @@ export function Cta({ id, label, note, size = 'lg', align = 'start', className }
     <Button
       id={id}
       size={size}
+      variant={variant}
+      className={styles.button}
       onClick={() => {
         track('cta_click', { id })
         open()
@@ -35,7 +49,14 @@ export function Cta({ id, label, note, size = 'lg', align = 'start', className }
       {text}
     </Button>
   ) : (
-    <Button id={id} size={size} href={config.onboardingUrl} onClick={() => track('cta_click', { id })}>
+    <Button
+      id={id}
+      size={size}
+      variant={variant}
+      className={styles.button}
+      href={config.onboardingUrl}
+      onClick={() => track('cta_click', { id })}
+    >
       {text}
     </Button>
   )
@@ -44,7 +65,7 @@ export function Cta({ id, label, note, size = 'lg', align = 'start', className }
   return (
     <div className={clsx(styles.wrap, align === 'center' && styles.center, className)}>
       {button}
-      <p className={styles.note}>{note}</p>
+      <p className={clsx(styles.note, tone === 'onDeep' && styles.noteOnDeep)}>{note}</p>
     </div>
   )
 }

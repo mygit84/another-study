@@ -1,6 +1,7 @@
-import { ArrowDown, Check } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { useRef } from 'react'
-import { AppShell } from '@/components/app-shell/AppShell'
+import { HeroPreview } from '@/components/app-shell/HeroPreview'
+import { Aurora } from '@/components/backgrounds/Aurora'
 import { Button } from '@/components/ui/Button'
 import { Cta } from '@/components/ui/Cta'
 import { content } from '@/content/ru'
@@ -17,6 +18,7 @@ export function Hero() {
 
   return (
     <section ref={ref} id="hero" aria-labelledby="hero-title" className={styles.hero}>
+      <Aurora />
       <div className={styles.inner}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>{h.eyebrow}</p>
@@ -24,27 +26,29 @@ export function Hero() {
             {title}
           </h1>
           <p className={styles.subtitle}>{h.subtitle}</p>
-          <div className={styles.actions}>
-            <Cta id="cta-hero" label={content.cta.hero} note={content.cta.heroNote} />
-            <Button id="cta-how" href="#demo" variant="secondary" size="lg" onClick={() => track('cta_click', { id: 'cta-how' })}>
-              {content.cta.how}
-              <ArrowDown size={18} strokeWidth={1.75} aria-hidden="true" />
-            </Button>
-          </div>
           <ul className={styles.highlights}>
             {h.highlights.map((item) => (
               <li key={item}>
-                <Check size={16} strokeWidth={2} aria-hidden="true" />
+                <Check size={20} strokeWidth={2.4} aria-hidden="true" />
                 {item}
               </li>
             ))}
           </ul>
+          <div className={styles.actions}>
+            <Cta id="cta-hero" label={content.cta.hero} note={content.cta.heroNote} className={styles.cta} />
+            <Button
+              id="cta-how"
+              href="#demo"
+              variant="link"
+              size="lg"
+              className={styles.how}
+              onClick={() => track('cta_click', { id: 'cta-how' })}
+            >
+              {content.cta.how}
+            </Button>
+          </div>
         </div>
-        <div className={styles.preview}>
-          <span className={styles.blobA} aria-hidden="true" />
-          <span className={styles.blobB} aria-hidden="true" />
-          <AppShell variant="preview" initialTab="week" />
-        </div>
+        <HeroPreview />
       </div>
     </section>
   )

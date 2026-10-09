@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { Cta } from '@/components/ui/Cta'
+import { Logo } from '@/components/ui/Logo'
 import { content } from '@/content/ru'
 import styles from './Header.module.scss'
 
@@ -18,8 +19,7 @@ export function Header() {
     <header className={clsx(styles.header, scrolled && styles.scrolled)}>
       <div className={styles.inner}>
         <a href="#hero" className={styles.logo} aria-label={content.common.homeLabel}>
-          <span className={styles.logoMark} aria-hidden="true" />
-          {content.common.logo}
+          <Logo />
         </a>
         <nav className={styles.nav} aria-label={content.header.navLabel}>
           <ul>
@@ -30,7 +30,7 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        <Cta id="cta-header" label={content.cta.header} size="md" />
+        <Cta id="cta-header" label={content.cta.header} size="md" variant="contrast" />
       </div>
     </header>
   )

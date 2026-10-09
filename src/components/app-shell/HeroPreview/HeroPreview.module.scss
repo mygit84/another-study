@@ -1,0 +1,225 @@
+.preview {
+  position: relative;
+  min-width: 0;
+  padding-block-start: var(--space-5);
+  user-select: none;
+
+  @include up(lg) {
+    padding-block-start: var(--space-6);
+  }
+}
+
+.pill {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: var(--space-3);
+  z-index: 2;
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  font-weight: 700;
+  color: var(--on-contrast);
+  background: var(--contrast);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-pill);
+
+  @include text-small;
+
+  svg {
+    color: var(--lime);
+  }
+
+  @include up(lg) {
+    inset-inline-end: var(--space-5);
+  }
+}
+
+.card {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+
+  @include up(lg) {
+    padding: var(--space-7);
+    border-radius: var(--radius-xl);
+  }
+}
+
+.head {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.title {
+  @include font-display;
+
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+
+  @include up(lg) {
+    font-size: 1.5rem;
+  }
+}
+
+.subtitle {
+  color: var(--text-subtle);
+
+  @include text-small;
+
+  @include up(lg) {
+    font-size: 0.9375rem;
+  }
+}
+
+.meals {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.meal {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3);
+  background: var(--surface-muted);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+
+  @include up(lg) {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+}
+
+.mealActive {
+  background: var(--surface);
+  border-color: var(--contrast);
+}
+
+.time {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+
+  @include text-xs;
+
+  @include up(lg) {
+    width: 64px;
+    height: 64px;
+    font-size: 0.8125rem;
+  }
+}
+
+.breakfast {
+  color: var(--on-peach);
+  background: var(--peach);
+}
+
+.lunch {
+  color: var(--on-lime);
+  background: var(--lime);
+}
+
+.dinner {
+  color: var(--on-butter);
+  background: var(--butter);
+}
+
+.body {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.slot {
+  font-weight: 700;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  @include text-xs;
+}
+
+.name {
+  font-weight: 700;
+  line-height: 1.3;
+
+  @include up(lg) {
+    font-size: 1.0625rem;
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-block-start: var(--space-1);
+}
+
+.tag {
+  padding: 2px var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+
+  @include text-xs;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding-inline: var(--space-3);
+  font-weight: 700;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+
+  @include text-small;
+}
+
+.actionDark {
+  color: var(--on-contrast);
+  background: var(--contrast);
+  border-color: var(--contrast);
+}
+
+.why {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-1);
+  margin: calc(var(--space-3) * -1) var(--space-2) 0 var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  color: var(--on-deep-text);
+  background: var(--deep);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-pop);
+
+  @include text-small;
+
+  @include up(lg) {
+    margin: calc(var(--space-4) * -1) var(--space-6) 0 var(--space-12);
+    padding: var(--space-5) var(--space-6);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    border-radius: var(--radius-lg);
+  }
+}
+
+.whyTitle {
+  font-weight: 800;
+  color: var(--on-deep-accent);
+}

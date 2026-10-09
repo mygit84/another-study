@@ -1,5 +1,7 @@
 import { ViteReactSSG } from 'vite-react-ssg/single-page'
 import '@fontsource-variable/manrope/index.css'
+import '@fontsource-variable/unbounded/index.css'
+import './styles/tailwind.css'
 import './styles/global.scss'
 import App from './App'
 

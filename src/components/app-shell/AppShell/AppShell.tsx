@@ -108,9 +108,11 @@ function Shell({ preview }: { preview: boolean }) {
       inert={preview}
     >
       <div className={styles.topbar}>
-        <span className={styles.logo}>
-          <span className={styles.logoMark} aria-hidden="true" />
-          {content.common.logo}
+        <span className={styles.brand}>
+          <span className={styles.logo}>{content.common.logo}</span>
+          <Badge tone="accent" className={styles.demoBadge}>
+            {t.badge}
+          </Badge>
         </span>
         <div className={styles.topActions}>
           {!preview && (
@@ -134,9 +136,6 @@ function Shell({ preview }: { preview: boolean }) {
           <span className={styles.avatar} aria-hidden="true">
             {t.avatar}
           </span>
-          <Badge tone="accent" className={styles.demoBadge}>
-            {t.badge}
-          </Badge>
         </div>
       </div>
 

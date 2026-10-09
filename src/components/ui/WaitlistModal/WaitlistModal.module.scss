@@ -4,8 +4,8 @@
   color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-window);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
 
   &::backdrop {
     background: var(--overlay);
@@ -44,6 +44,8 @@
 
 .title {
   @include text-h3;
+
+  font-size: 1.375rem;
 }
 
 .text {
@@ -71,7 +73,7 @@
   font-weight: 400;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
 
   @include focus-ring;
 

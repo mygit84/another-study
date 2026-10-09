@@ -1,0 +1,46 @@
+.logo {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.md {
+  font-size: 1.125rem;
+
+  @include up(md) {
+    gap: var(--space-3);
+    font-size: 1.3125rem;
+  }
+}
+
+.sm {
+  font-size: 1rem;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  background: var(--contrast);
+  border-radius: var(--radius-sm);
+
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--lime);
+  }
+
+  @include up(md) {
+    width: 34px;
+    height: 34px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

@@ -1,62 +1,72 @@
 .steps {
-  position: relative;
   display: grid;
-  gap: var(--space-8);
+  gap: var(--space-3);
 
   @include up(lg) {
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-12);
+    gap: var(--space-5);
   }
 }
 
 .step {
-  position: relative;
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--space-2) var(--space-4);
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
 
   @include up(lg) {
     grid-template-columns: 1fr;
-    row-gap: var(--space-3);
+    gap: var(--space-4);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
   }
 }
 
-// Соединительная линия между номерами на desktop
-.step:not(:last-child)::after {
-  @include up(lg) {
-    position: absolute;
-    inset-block-start: 28px;
-    inset-inline: 72px calc(var(--space-12) * -1 + var(--space-4));
-    height: 2px;
-    content: '';
-    background: repeating-linear-gradient(90deg, var(--border) 0 8px, transparent 8px 14px);
-  }
+.stepAccent {
+  background: var(--lime);
+  border-color: var(--lime);
 }
 
 .num {
-  display: grid;
-  grid-row: span 2;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--on-primary);
-  background: var(--primary);
-  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
 
   @include up(lg) {
-    grid-row: auto;
-    margin-block-end: var(--space-3);
+    font-size: 3.5rem;
+  }
+
+  .stepAccent & {
+    color: var(--on-lime);
+  }
+}
+
+.body {
+  display: grid;
+  gap: var(--space-2);
+
+  @include up(lg) {
+    gap: var(--space-3);
   }
 }
 
 .title {
-  align-self: end;
-
   @include text-h3;
+
+  @include up(lg) {
+    font-size: 1.375rem;
+  }
 }
 
 .text {
   color: var(--text-muted);
+
+  .stepAccent & {
+    color: var(--on-lime);
+  }
 }

@@ -1,32 +1,34 @@
 .grid {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-6);
 
   @include up(lg) {
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
+    gap: var(--space-8);
   }
 }
 
-.card {
+.item {
   display: grid;
   align-content: start;
-  gap: var(--space-3);
+  gap: var(--space-2);
+  padding-block-start: var(--space-4);
+  border-block-start: 2px solid var(--text);
 
-  @include card;
-
-  padding: var(--space-8);
-  border-block-start: 3px solid var(--primary);
-}
-
-.icon {
-  color: var(--primary);
+  @include up(lg) {
+    gap: var(--space-3);
+    padding-block-start: var(--space-5);
+  }
 }
 
 .title {
   @include text-h3;
+
+  @include up(lg) {
+    font-size: 1.3125rem;
+  }
 }
 
 .text {
-  color: var(--text-muted);
+  color: var(--on-lime);
 }

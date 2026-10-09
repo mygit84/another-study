@@ -3,10 +3,10 @@
   position: relative;
   display: grid;
   grid-template:
-    'top' 48px
+    'top' 56px
+    'safety' auto
     'main' minmax(0, 1fr)
     'tabbar' auto
-    'safety' auto
     / minmax(0, 1fr);
   width: 100%;
   max-width: 390px;
@@ -14,27 +14,30 @@
   margin-inline: auto;
   overflow: hidden;
   text-align: start;
-  background: var(--surface);
+  color: var(--text);
+  background: var(--surface-app);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-window);
 
   @include up(md) {
     grid-template:
-      'top top' 48px
-      'side main' minmax(0, 1fr)
+      'top top' 64px
       'safety safety' auto
-      / 56px minmax(0, 1fr);
+      'side main' 1fr
+      / 64px minmax(0, 1fr);
     max-width: none;
-    height: 560px;
+    height: 600px;
+    border-radius: var(--radius-xl);
   }
 
   @include up(lg) {
     grid-template:
-      'top top top' 48px
-      'side main assistant' minmax(0, 1fr)
+      'top top top' 64px
       'safety safety safety' auto
-      / 200px minmax(0, 1fr) 260px;
+      'side main assistant' 1fr
+      / 220px minmax(0, 1fr) 300px;
+    height: 640px;
   }
 }
 
@@ -49,10 +52,10 @@
 
   @include up(lg) {
     grid-template:
-      'top top' 48px
-      'side main' minmax(0, 1fr)
+      'top top' 64px
       'safety safety' auto
-      / 56px minmax(0, 1fr);
+      'side main' 1fr
+      / 64px minmax(0, 1fr);
   }
 }
 
@@ -63,22 +66,29 @@
   align-items: center;
   justify-content: space-between;
   padding-inline: var(--space-4);
+  background: var(--surface);
   border-block-end: 1px solid var(--border);
+
+  @include up(md) {
+    padding-inline: var(--space-5);
+  }
+}
+
+.brand {
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
 }
 
 .logo {
-  display: inline-flex;
-  gap: var(--space-2);
-  align-items: center;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
+  @include font-display;
 
-.logoMark {
-  width: 14px;
-  height: 14px;
-  background: var(--primary);
-  border-radius: 50% 50% 50% 0;
+  font-size: 0.9375rem;
+  letter-spacing: -0.02em;
+
+  @include up(md) {
+    font-size: 1.0625rem;
+  }
 }
 
 .topActions {
@@ -90,9 +100,11 @@
 .topIcon {
   display: none;
   place-items: center;
-  width: 32px;
-  height: 32px;
-  color: var(--text-muted);
+  width: 40px;
+  height: 40px;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 
   @include up(md) {
     display: grid;
@@ -102,33 +114,38 @@
 .avatar {
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
-  font-weight: 700;
-  color: var(--on-primary);
-  background: var(--primary);
+  width: 34px;
+  height: 34px;
+  font-weight: 800;
+  color: var(--on-lime);
+  background: var(--lime);
   border-radius: var(--radius-full);
 
-  @include text-xs;
+  @include text-small;
+
+  @include up(md) {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .demoBadge {
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .assistantToggle {
   display: none;
   gap: var(--space-1);
   align-items: center;
-  min-height: 32px;
-  padding: var(--space-1) var(--space-3);
-  font-weight: 600;
-  color: var(--primary);
-  background: var(--info-bg);
+  min-height: 40px;
+  padding: var(--space-1) var(--space-4);
+  font-weight: 700;
+  color: var(--on-contrast);
+  background: var(--contrast);
   border: 0;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
 
-  @include text-xs;
+  @include text-small;
   @include focus-ring;
 
   @include up(md) {
@@ -145,10 +162,13 @@
   grid-area: side;
   flex-direction: column;
   gap: var(--space-1);
-  padding: var(--space-3) var(--space-2);
+  padding: var(--space-4) var(--space-2);
   overflow-y: auto;
-  background: var(--bg);
   border-inline-end: 1px solid var(--border);
+
+  @include up(lg) {
+    padding-inline: var(--space-3);
+  }
 
   @include up(md) {
     display: flex;
@@ -160,10 +180,10 @@
   gap: var(--space-3);
   align-items: center;
   justify-content: center;
-  min-height: 40px;
+  min-height: 44px;
   padding: var(--space-2);
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text);
   text-align: start;
   background: none;
   border: 0;
@@ -172,27 +192,25 @@
     background-color var(--duration) var(--ease),
     color var(--duration) var(--ease);
 
-  @include text-small;
   @include focus-ring;
 
   &:hover {
-    color: var(--text);
-    background: var(--surface-muted);
+    background: var(--info-bg);
   }
 
   @include up(lg) {
     justify-content: flex-start;
     padding-inline: var(--space-3);
+    font-size: 0.9375rem;
   }
 }
 
 .tabActive {
-  color: var(--primary);
-  background: var(--info-bg);
+  color: var(--on-contrast);
+  background: var(--contrast);
 
   &:hover {
-    color: var(--primary);
-    background: var(--info-bg);
+    background: var(--contrast);
   }
 }
 
@@ -242,7 +260,6 @@
   display: grid;
   grid-area: tabbar;
   grid-template-columns: repeat(5, 1fr);
-  padding: var(--space-1) var(--space-1) var(--space-2);
   background: var(--surface);
   border-block-start: 1px solid var(--border);
 
@@ -255,21 +272,23 @@
   display: grid;
   gap: 2px;
   justify-items: center;
-  min-height: 48px;
-  padding: var(--space-1) 0;
+  align-content: center;
+  min-height: 52px;
+  padding: var(--space-1) 2px;
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 0.875rem;
-  color: var(--text-muted);
+  color: var(--text);
   background: none;
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: 0;
 
   @include focus-ring;
 }
 
 .barItemActive {
-  color: var(--primary);
+  color: var(--on-contrast);
+  background: var(--contrast);
 }
 
 .safety {
@@ -277,14 +296,19 @@
   grid-area: safety;
   gap: var(--space-2);
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: var(--space-2) var(--space-4);
-  color: var(--text);
-  text-align: center;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: start;
   background: var(--info-bg);
-  border-block-start: 1px solid var(--border);
 
   @include text-xs;
+
+  @include up(md) {
+    padding-inline: var(--space-5);
+    font-size: 0.8125rem;
+  }
 
   svg {
     color: var(--primary);

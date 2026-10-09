@@ -1,6 +1,6 @@
 .grid {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
 
   @include up(md) {
     grid-template-columns: repeat(2, 1fr);
@@ -8,54 +8,61 @@
 
   @include up(lg) {
     grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-4);
   }
 }
 
 .card {
   display: grid;
   align-content: start;
-  gap: var(--space-3);
-  height: 100%;
-  padding: var(--space-6);
+  gap: var(--space-1);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
 
-  @include card;
-}
-
-.icon {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  color: var(--primary);
-  background: var(--info-bg);
-  border-radius: var(--radius-full);
+  @include up(lg) {
+    gap: var(--space-2);
+    padding: var(--space-6);
+  }
 }
 
 .title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.5rem;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.4;
+
+  @include up(lg) {
+    font-size: 1.125rem;
+  }
 }
 
 .text {
   color: var(--text-muted);
 
   @include text-small;
+
+  @include up(lg) {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
 }
 
 .note {
-  display: flex;
-  gap: var(--space-2);
-  align-items: flex-start;
-  justify-content: center;
-  max-width: 720px;
-  margin: var(--space-8) auto 0;
-  color: var(--text-muted);
-  text-align: start;
+  max-width: 900px;
+  margin-block-start: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  font-weight: 600;
+  color: var(--on-butter);
+  background: var(--butter);
+  border-radius: var(--radius-md);
 
   @include text-small;
 
-  svg {
-    margin-block-start: 1px;
+  @include up(lg) {
+    margin-block-start: var(--space-10);
+    padding: var(--space-5) var(--space-6);
+    font-size: 1rem;
+    line-height: 1.55;
   }
 }

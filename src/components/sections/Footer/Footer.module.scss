@@ -1,87 +1,90 @@
 .footer {
-  padding-block: var(--space-12) var(--space-8);
-  background: var(--surface-muted);
+  padding-block: var(--space-10) var(--space-8);
   border-block-start: 1px solid var(--border);
+
+  @include up(lg) {
+    padding-block: var(--space-12) var(--space-10);
+  }
 }
 
 .inner {
   display: grid;
-  gap: var(--space-8);
+  gap: var(--space-6);
 
   @include container;
 
   @include up(lg) {
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: var(--space-12);
+    gap: var(--space-7);
   }
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5) var(--space-10);
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .brand {
   display: grid;
-  gap: var(--space-2);
-  align-content: start;
+  gap: var(--space-1);
 }
 
 .logo {
-  display: inline-flex;
-  gap: var(--space-2);
-  align-items: center;
   font-size: 1.25rem;
-  font-weight: 800;
-}
-
-.logoMark {
-  width: 18px;
-  height: 18px;
-  background: var(--primary);
-  border-radius: 50% 50% 50% 0;
 }
 
 .tagline,
-.disclaimer {
-  color: var(--text-muted);
+.disclaimer,
+.bottom {
+  color: var(--text-subtle);
 
   @include text-small;
 }
 
+.tagline {
+  @include up(lg) {
+    font-size: 0.9375rem;
+  }
+}
+
+.disclaimer {
+  max-width: 860px;
+}
+
 .links {
-  display: grid;
-  gap: var(--space-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-7);
 
   a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 600;
     color: var(--text);
     text-underline-offset: 3px;
     border-radius: var(--radius-sm);
 
-    @include text-small;
     @include focus-ring;
 
     &:hover {
       color: var(--primary);
+    }
+
+    @include up(lg) {
+      font-size: 0.9375rem;
     }
   }
 }
 
 .bottom {
   display: flex;
-  gap: var(--space-4);
-  align-items: center;
-  justify-content: space-between;
-  padding-block-start: var(--space-6);
-  color: var(--text-muted);
-  border-block-start: 1px solid var(--border);
+  gap: var(--space-2);
 
-  @include text-small;
-
-  @include up(lg) {
-    grid-column: 1 / -1;
+  span + span::before {
+    margin-inline-end: var(--space-2);
+    content: '·';
   }
-}
-
-.age {
-  padding: 2px var(--space-2);
-  font-weight: 700;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
 }

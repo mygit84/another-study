@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { content } from '@/content/ru'
 import { track } from '@/lib/analytics'
@@ -8,7 +8,7 @@ export function Faq() {
   const f = content.faq
   const keys = Object.keys(f.items) as (keyof typeof f.items)[]
   return (
-    <Section id="faq" title={f.title}>
+    <Section id="faq" title={f.title} tone="surface" layout="aside">
       <div className={styles.list}>
         {keys.map((key) => (
           <details
@@ -20,7 +20,8 @@ export function Faq() {
           >
             <summary className={styles.question}>
               <span>{f.items[key].question}</span>
-              <Plus size={20} strokeWidth={1.75} aria-hidden="true" className={styles.icon} />
+              <Plus size={22} strokeWidth={2} aria-hidden="true" className={styles.iconOpen} />
+              <Minus size={22} strokeWidth={2} aria-hidden="true" className={styles.iconClose} />
             </summary>
             <p className={styles.answer}>{f.items[key].answer}</p>
           </details>

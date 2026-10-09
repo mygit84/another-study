@@ -7,22 +7,53 @@ interface SectionProps {
   id: string
   title: string
   subtitle?: string
+  eyebrow?: string
   children: ReactNode
-  tone?: 'default' | 'muted'
+  /** default — фон страницы, surface — белая полоса, lime — салатовая, deep — тёмная */
+  tone?: 'default' | 'surface' | 'lime' | 'deep'
+  /** split — заголовок слева, подзаголовок справа (desktop) */
+  head?: 'stack' | 'split'
+  /** wide — контейнер 1280px (демо) */
+  wide?: boolean
+  /** aside — заголовок слева, контент справа (desktop) */
+  layout?: 'default' | 'aside'
+  /** Декоративный фон из src/components/backgrounds */
+  background?: ReactNode
   className?: string
 }
 
-export function Section({ id, title, subtitle, children, tone = 'default', className }: SectionProps) {
+export function Section({
+  id,
+  title,
+  subtitle,
+  eyebrow,
+  children,
+  tone = 'default',
+  head = 'stack',
+  wide = false,
+  layout = 'default',
+  background,
+  className,
+}: SectionProps) {
   const ref = useRef<HTMLElement>(null)
   useSectionView(ref, id)
   const titleId = `${id}-title`
   return (
-    <section ref={ref} id={id} aria-labelledby={titleId} className={clsx(styles.section, styles[tone], className)}>
-      <div className={styles.inner}>
-        <header className={styles.head}>
-          <h2 id={titleId} className={styles.title}>
-            {title}
-          </h2>
+    <section
+      ref={ref}
+      id={id}
+      aria-labelledby={titleId}
+      className={clsx(styles.section, styles[tone], background && styles.hasBackground, className)}
+    >
+      {background}
+      <div className={clsx(styles.inner, wide && styles.wide, layout === 'aside' && styles.aside)}>
+        <header className={clsx(styles.head, head === 'split' && styles.split)}>
+          <div className={styles.titles}>
+            {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
+            <h2 id={titleId} className={styles.title}>
+              {title}
+            </h2>
+          </div>
           {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         </header>
         {children}

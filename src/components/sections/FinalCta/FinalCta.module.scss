@@ -1,34 +1,79 @@
 .section {
-  padding-block: var(--space-18);
-
   @include container;
-
-  @include up(lg) {
-    padding-block: var(--space-30);
-  }
+  @include section-block;
 }
 
 .box {
+  position: relative;
   display: grid;
-  gap: var(--space-6);
-  justify-items: center;
-  padding: var(--space-12) var(--space-6);
-  text-align: center;
-  background: var(--info-bg);
-  border-radius: var(--radius-lg);
+  gap: var(--space-5);
+  justify-items: start;
+  padding: var(--space-10) var(--space-6);
+  overflow: hidden;
+  color: var(--on-deep);
+  background: var(--deep);
+  border-radius: var(--radius-xl);
+  isolation: isolate;
 
   @include up(lg) {
-    padding: var(--space-18) var(--space-12);
+    gap: var(--space-6);
+    padding: var(--space-26) var(--space-26) var(--space-26) var(--space-18);
+    border-radius: var(--radius-2xl);
   }
+}
+
+.blobA,
+.blobB {
+  position: absolute;
+  z-index: -1;
+  border-radius: var(--radius-full);
+}
+
+.blobA {
+  inset-block-end: -120px;
+  inset-inline-end: -80px;
+  width: 380px;
+  height: 380px;
+  background: var(--on-deep-accent);
+  opacity: 0.16;
+}
+
+.blobB {
+  inset-block-start: -90px;
+  inset-inline-end: 120px;
+  width: 200px;
+  height: 200px;
+  background: var(--cta);
+  opacity: 0.35;
 }
 
 .title {
   text-wrap: balance;
 
-  @include text-h2;
+  @include text-h1;
+
+  font-size: 1.875rem;
+
+  @include up(lg) {
+    font-size: clamp(2.125rem, 4.2vw, 3.75rem);
+  }
 }
 
 .text {
-  max-width: 560px;
-  color: var(--text-muted);
+  max-width: 620px;
+  color: var(--on-deep-muted);
+
+  @include text-lead;
+}
+
+.cta {
+  align-items: stretch;
+  width: 100%;
+  text-align: center;
+
+  @include up(md) {
+    align-items: flex-start;
+    width: auto;
+    text-align: start;
+  }
 }

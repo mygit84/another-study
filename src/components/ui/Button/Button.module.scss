@@ -3,14 +3,15 @@
   gap: var(--space-2);
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  border: 1.5px solid transparent;
+  border: 1px solid transparent;
   border-radius: var(--radius-full);
   transition:
     background-color var(--duration) var(--ease),
     border-color var(--duration) var(--ease),
+    color var(--duration) var(--ease),
     transform var(--duration) var(--ease);
 
   @include focus-ring;
@@ -21,38 +22,75 @@
 }
 
 .primary {
-  color: var(--on-primary);
-  background: var(--primary);
+  color: var(--on-cta);
+  background: var(--cta);
 
   &:hover {
-    background: var(--primary-hover);
+    background: var(--cta-hover);
+  }
+}
+
+.contrast {
+  color: var(--on-contrast);
+  background: var(--contrast);
+
+  &:hover {
+    background: var(--contrast-hover);
   }
 }
 
 .secondary {
   color: var(--text);
-  background: transparent;
+  background: var(--surface);
   border-color: var(--border);
 
   &:hover {
-    border-color: var(--primary);
+    border-color: var(--text);
+  }
+}
+
+.link {
+  padding-inline: 0;
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  background: none;
+
+  &:hover {
+    color: var(--primary);
   }
 }
 
 .md {
-  min-height: 40px;
-  padding: var(--space-2) var(--space-4);
+  min-height: 44px;
+  padding-inline: var(--space-5);
 
   @include text-small;
 
-  font-weight: 600;
+  font-weight: 700;
+
+  @include up(md) {
+    font-size: 0.9375rem;
+  }
 }
 
 .lg {
-  min-height: 52px;
-  padding: var(--space-3) var(--space-6);
-  font-size: 1rem;
-  font-weight: 600;
+  min-height: 56px;
+  padding: var(--space-2) var(--space-8);
+  font-size: 1.0625rem;
+  font-weight: 800;
   text-align: center;
   white-space: normal;
+
+  @include up(lg) {
+    min-height: 58px;
+    font-size: 1.125rem;
+  }
+}
+
+.lg.link {
+  min-height: 44px;
+  padding-inline: 0;
+  font-size: 1rem;
+  font-weight: 700;
 }

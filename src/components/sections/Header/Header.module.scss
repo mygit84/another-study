@@ -2,18 +2,17 @@
   position: sticky;
   inset-block-start: 0;
   z-index: 50;
-  background: transparent;
-  border-block-end: 1px solid transparent;
+  background: var(--bg);
+  border-block-end: 1px solid var(--border);
   transition:
     background-color var(--duration) var(--ease),
-    box-shadow var(--duration) var(--ease),
-    border-color var(--duration) var(--ease);
+    box-shadow var(--duration) var(--ease);
 }
 
 .scrolled {
-  background: var(--bg);
-  border-block-end-color: var(--border);
+  background: var(--header-bg);
   box-shadow: var(--shadow-header);
+  backdrop-filter: blur(12px);
 }
 
 .inner {
@@ -21,29 +20,22 @@
   gap: var(--space-4);
   align-items: center;
   justify-content: space-between;
-  min-height: 64px;
+  min-height: 68px;
 
   @include container;
+
+  @include up(lg) {
+    gap: var(--space-8);
+    min-height: 72px;
+  }
 }
 
 .logo {
-  display: inline-flex;
-  gap: var(--space-2);
-  align-items: center;
-  font-size: 1.25rem;
-  font-weight: 800;
+  color: var(--text);
   text-decoration: none;
-  letter-spacing: -0.02em;
   border-radius: var(--radius-sm);
 
   @include focus-ring;
-}
-
-.logoMark {
-  width: 18px;
-  height: 18px;
-  background: var(--primary);
-  border-radius: 50% 50% 50% 0;
 }
 
 .nav {
@@ -55,21 +47,20 @@
 
   ul {
     display: flex;
-    gap: var(--space-8);
+    gap: var(--space-7);
   }
 
   a {
-    font-weight: 500;
-    color: var(--text-muted);
+    font-weight: 600;
+    color: var(--text);
     text-decoration: none;
     border-radius: var(--radius-sm);
     transition: color var(--duration) var(--ease);
 
-    @include text-small;
     @include focus-ring;
 
     &:hover {
-      color: var(--text);
+      color: var(--primary);
     }
   }
 }

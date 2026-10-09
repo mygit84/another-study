@@ -3,7 +3,7 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'reac
 import styles from './Button.module.scss'
 
 interface BaseProps {
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'contrast' | 'secondary' | 'link'
   size?: 'md' | 'lg'
   children: ReactNode
   className?: string
