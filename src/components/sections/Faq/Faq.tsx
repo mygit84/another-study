@@ -4,13 +4,14 @@ import { content } from '@/content/ru'
 import { track } from '@/lib/analytics'
 import styles from './Faq.module.scss'
 
+const f = content.faq
+const KEYS = Object.keys(f.items) as (keyof typeof f.items)[]
+
 export function Faq() {
-  const f = content.faq
-  const keys = Object.keys(f.items) as (keyof typeof f.items)[]
   return (
     <Section id="faq" title={f.title} tone="surface" layout="aside">
       <div className={styles.list}>
-        {keys.map((key) => (
+        {KEYS.map((key) => (
           <details
             key={key}
             className={styles.item}

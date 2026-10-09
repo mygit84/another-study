@@ -12,6 +12,21 @@
     <meta name="theme-color" content="#111814" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Кириллические начертания для первого экрана: шрифт H1 (LCP) и основной текст -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="./node_modules/@fontsource-variable/unbounded/files/unbounded-cyrillic-wght-normal.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="./node_modules/@fontsource-variable/manrope/files/manrope-cyrillic-wght-normal.woff2"
+    />
     <!-- TODO: домен — добавить <link rel="canonical"> и абсолютные URL для og:url / og:image -->
 
     <meta property="og:type" content="website" />

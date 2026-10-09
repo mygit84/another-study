@@ -6,8 +6,9 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  // 2 + 3: две широкие карточки сверху, три под ними
   @include up(lg) {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: var(--space-4);
   }
 }
@@ -21,10 +22,33 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
 
+  // В 2 колонки последняя (пятая) карточка на всю ширину, без пустой ячейки; на lg span 2 и так у всех
+  @include up(md) {
+    &:last-child {
+      grid-column: span 2;
+    }
+  }
+
   @include up(lg) {
+    grid-column: span 2;
     gap: var(--space-2);
     padding: var(--space-6);
+
+    &:nth-child(-n + 2) {
+      grid-column: span 3;
+    }
   }
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: var(--space-10);
+  height: var(--space-10);
+  margin-block-end: var(--space-2);
+  color: var(--on-lime);
+  background: var(--lime);
+  border-radius: var(--radius-sm);
 }
 
 .title {

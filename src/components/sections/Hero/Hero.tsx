@@ -1,4 +1,3 @@
-import { Check } from 'lucide-react'
 import { useRef } from 'react'
 import { HeroPreview } from '@/components/app-shell/HeroPreview'
 import { Aurora } from '@/components/backgrounds/Aurora'
@@ -26,14 +25,6 @@ export function Hero() {
             {title}
           </h1>
           <p className={styles.subtitle}>{h.subtitle}</p>
-          <ul className={styles.highlights}>
-            {h.highlights.map((item) => (
-              <li key={item}>
-                <Check size={20} strokeWidth={2.4} aria-hidden="true" />
-                {item}
-              </li>
-            ))}
-          </ul>
           <div className={styles.actions}>
             <Cta id="cta-hero" label={content.cta.hero} note={content.cta.heroNote} className={styles.cta} />
             <Button
@@ -48,7 +39,9 @@ export function Hero() {
             </Button>
           </div>
         </div>
-        <HeroPreview />
+        <div className={styles.preview}>
+          <HeroPreview />
+        </div>
       </div>
     </section>
   )

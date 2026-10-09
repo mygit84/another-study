@@ -22,29 +22,18 @@
   }
 }
 
-.blobA,
-.blobB {
+// Мягкое салатовое свечение справа снизу вместо жёстких кругов
+.box::before {
   position: absolute;
+  inset-block-end: -40%;
+  inset-inline-end: -20%;
   z-index: -1;
-  border-radius: var(--radius-full);
-}
-
-.blobA {
-  inset-block-end: -120px;
-  inset-inline-end: -80px;
-  width: 380px;
-  height: 380px;
-  background: var(--on-deep-accent);
-  opacity: 0.16;
-}
-
-.blobB {
-  inset-block-start: -90px;
-  inset-inline-end: 120px;
-  width: 200px;
-  height: 200px;
-  background: var(--cta);
-  opacity: 0.35;
+  width: 70%;
+  aspect-ratio: 1;
+  content: '';
+  background: radial-gradient(closest-side, var(--on-deep-accent), transparent);
+  opacity: 0.18;
+  pointer-events: none;
 }
 
 .title {

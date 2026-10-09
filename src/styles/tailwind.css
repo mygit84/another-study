@@ -1,5 +1,5 @@
 /*
- * Tailwind CSS v4 — только для декоративных фонов (src/components/backgrounds).
+ * Tailwind CSS v4 — там, где польза превышает вред (правило в AGENTS.md).
  * Без preflight: базовые стили задаёт global.scss. Всё лежит в CSS-слоях,
  * поэтому неслоёные SCSS Modules и токены всегда побеждают.
  */
@@ -8,25 +8,27 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme inline {
+  /* Дефолтная палитра и размеры шрифта Tailwind обходят токены — отключены. */
+  --color-*: initial;
+  --text-*: initial;
+
+  /* Те же брейкпоинты, что в _breakpoints.scss: sm: ≡ up(sm). */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+
   --color-aurora-1: var(--aurora-1);
   --color-aurora-2: var(--aurora-2);
   --color-aurora-3: var(--aurora-3);
   --color-aurora-dot: var(--aurora-dot);
-  --color-grid-line: var(--bg-grid-line);
-  --color-grid-cell: var(--bg-grid-cell);
   --color-ripple: var(--bg-ripple);
-  --color-glow: var(--bg-glow);
-  --color-glow-warm: var(--bg-glow-warm);
-  --color-line: var(--bg-line);
 
   --animate-aurora-a: aurora-a 22s ease-in-out infinite alternate;
   --animate-aurora-b: aurora-b 26s ease-in-out infinite alternate;
   --animate-aurora-c: aurora-c 30s ease-in-out infinite alternate;
-  --animate-cell: cell 6s ease-in-out infinite;
   --animate-ripple: ripple 3.4s ease infinite;
-  --animate-beam: beam 9s linear infinite;
-  --animate-meteor: meteor 6s linear infinite;
-  --animate-spotlight: spotlight 2.4s ease 0.3s 1 both;
 
   @keyframes aurora-a {
     to {
@@ -46,17 +48,6 @@
     }
   }
 
-  @keyframes cell {
-    0%,
-    100% {
-      opacity: 0;
-    }
-
-    50% {
-      opacity: 1;
-    }
-  }
-
   @keyframes ripple {
     0%,
     100% {
@@ -67,42 +58,72 @@
       transform: scale(0.92);
     }
   }
+}
 
-  @keyframes beam {
-    from {
-      transform: translateY(-100%);
-    }
-
-    to {
-      transform: translateY(400%);
-    }
+/*
+ * Параллакс декоративных слоёв: CSS scroll-driven animations, без JS.
+ * Шкала — view-timeline `--section` на секции (Section, Hero). Анимируются
+ * translate/scale, поэтому они не спорят с transform-анимациями внутри слоя.
+ * Без поддержки animation-timeline слой просто стоит на месте.
+ */
+@keyframes parallax-drift {
+  from {
+    translate: 0 calc(var(--parallax-shift) * -1);
   }
 
-  @keyframes meteor {
-    0% {
-      opacity: 1;
-      transform: rotate(215deg) translateX(0);
-    }
+  to {
+    translate: 0 var(--parallax-shift);
+  }
+}
 
-    70% {
-      opacity: 1;
-    }
-
-    100% {
-      opacity: 0;
-      transform: rotate(215deg) translateX(-600px);
-    }
+@keyframes parallax-swell {
+  from {
+    translate: 0 calc(var(--parallax-shift) * -1);
+    scale: 0.96;
   }
 
-  @keyframes spotlight {
-    from {
-      opacity: 0;
-      transform: scale(0.6);
-    }
+  to {
+    translate: 0 var(--parallax-shift);
+    scale: 1.04;
+  }
+}
 
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+/* Дальний слой: отстаёт от скролла сильнее */
+@utility parallax-far {
+  --parallax-shift: 12%;
+
+  @supports (animation-timeline: view()) {
+    animation: parallax-drift linear both;
+    animation-timeline: --section;
+    animation-range: cover;
+  }
+}
+
+/* Ближний слой: отстаёт чуть-чуть */
+@utility parallax-near {
+  --parallax-shift: 5%;
+
+  @supports (animation-timeline: view()) {
+    animation: parallax-drift linear both;
+    animation-timeline: --section;
+    animation-range: cover;
+  }
+}
+
+/* Дальний слой, который ещё и слегка «дышит» масштабом */
+@utility parallax-swell {
+  --parallax-shift: 8%;
+
+  @supports (animation-timeline: view()) {
+    animation: parallax-swell linear both;
+    animation-timeline: --section;
+    animation-range: cover;
+  }
+}
+
+/* Бесконечная анимация встаёт на паузу, пока фон вне экрана (хук useOffscreen) */
+@utility pause-offscreen {
+  [data-offscreen] & {
+    animation-play-state: paused;
   }
 }

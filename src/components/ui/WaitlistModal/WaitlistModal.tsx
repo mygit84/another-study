@@ -20,7 +20,11 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
   const [goal, setGoal] = useState(t.goals[0])
   const [consent, setConsent] = useState(false)
   const [touched, setTouched] = useState(false)
+  // Новый объект на каждую неудачную отправку: эффект ниже переводит фокус даже на то же поле
+  const [invalidField, setInvalidField] = useState<{ name: 'email' | 'consent' } | null>(null)
   const [done, setDone] = useState(false)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const consentRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const dialog = ref.current
@@ -33,10 +37,20 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
   const emailError = touched && !emailValid
   const consentError = touched && !consent
 
+  // Фокус на первое поле с ошибкой — после рендера, чтобы aria-describedby уже указывал на текст ошибки
+  useEffect(() => {
+    if (!invalidField) return
+    const fieldRef = invalidField.name === 'email' ? emailRef : consentRef
+    fieldRef.current?.focus()
+  }, [invalidField])
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
     setTouched(true)
-    if (!emailValid || !consent) return
+    if (!emailValid || !consent) {
+      setInvalidField({ name: emailValid ? 'consent' : 'email' })
+      return
+    }
     // TODO: реальная отправка формы
     console.info('[waitlist]', { email: email.trim(), goal })
     track('waitlist_submit')
@@ -76,9 +90,12 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
             <div className={styles.field}>
               <label htmlFor={`${uid}-email`}>{t.emailLabel}</label>
               <input
+                ref={emailRef}
                 id={`${uid}-email`}
+                name="email"
                 type="email"
                 autoComplete="email"
+                spellCheck={false}
                 required
                 className={styles.input}
                 placeholder={t.emailPlaceholder}
@@ -98,6 +115,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
               <label htmlFor={`${uid}-goal`}>{t.goalLabel}</label>
               <select
                 id={`${uid}-goal`}
+                name="goal"
                 className={styles.input}
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
@@ -111,7 +129,9 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
             <div className={styles.field}>
               <label className={styles.consent}>
                 <input
+                  ref={consentRef}
                   type="checkbox"
+                  name="consent"
                   required
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}

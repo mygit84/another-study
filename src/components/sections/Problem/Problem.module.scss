@@ -1,34 +1,30 @@
-.grid {
+// Боли — редакционный список строк, а не сетка карточек:
+// вопрос крупно слева, короткое пояснение справа (desktop)
+.row {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
+  padding-block: var(--space-5);
+  border-block-end: 1px solid var(--border);
+
+  &:first-child {
+    border-block-start: 1px solid var(--border);
+  }
 
   @include up(md) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include up(lg) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-5);
-  }
-}
-
-.card {
-  display: grid;
-  align-content: start;
-  gap: var(--space-2);
-  padding: var(--space-5);
-  background: var(--surface-muted);
-  border-radius: var(--radius-lg);
-
-  @include up(lg) {
-    padding: var(--space-7);
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: baseline;
+    padding-block: var(--space-7);
   }
 }
 
 .title {
   @include text-h3;
+  @include text-h3-lg;
 }
 
 .text {
   color: var(--text-muted);
+
+  @include text-lead;
 }

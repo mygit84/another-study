@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { Meteors } from '@/components/backgrounds/Meteors'
 import { Cta } from '@/components/ui/Cta'
 import { content } from '@/content/ru'
 import { useSectionView } from '@/hooks/useSectionView'
@@ -12,9 +11,6 @@ export function FinalCta() {
   return (
     <section ref={ref} id="start" aria-labelledby="start-title" className={styles.section}>
       <div className={styles.box}>
-        <span className={styles.blobA} aria-hidden="true" />
-        <span className={styles.blobB} aria-hidden="true" />
-        <Meteors />
         <h2 id="start-title" className={styles.title}>
           {f.title}
         </h2>

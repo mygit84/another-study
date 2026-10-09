@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { Sparkles, X } from 'lucide-react'
 import { useEffect, useId, useRef, useState } from 'react'
 import { content } from '@/content/ru'
-import { useDemo } from '@/context/DemoContext'
+import { useDemoActions, useDemoState } from '@/context/DemoContext'
 import { dishes, type QuickEdit } from '@/mock/demo-data'
 import styles from './AssistantPanel.module.scss'
 
@@ -11,7 +11,8 @@ const OVERLAY_QUERY = '(max-width: 1023.98px)'
 const QUICK: QuickEdit[] = ['noTime', 'guests', 'emptyFridge', 'simpler']
 
 export function AssistantPanel({ id }: { id: string }) {
-  const { selectedDish, assistantOpen, setAssistantOpen, applyQuickEdit } = useDemo()
+  const { selectedDish, assistantOpen } = useDemoState()
+  const { setAssistantOpen, applyQuickEdit } = useDemoActions()
   const ref = useRef<HTMLElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const uid = useId()

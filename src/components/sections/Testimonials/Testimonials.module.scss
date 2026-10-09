@@ -2,9 +2,16 @@
   display: grid;
   gap: var(--space-3);
 
+  // Первая цитата крупно слева, две другие стопкой справа
   @include up(lg) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
     gap: var(--space-5);
+  }
+}
+
+.featured {
+  @include up(lg) {
+    grid-row: span 2;
   }
 }
 
@@ -22,7 +29,16 @@
   @include up(lg) {
     gap: var(--space-6);
     padding: var(--space-8);
-    border-radius: var(--radius-xl);
+  }
+}
+
+.cardFeatured {
+  color: var(--on-peach);
+  background: var(--peach);
+  border-color: var(--peach);
+
+  @include up(lg) {
+    padding: var(--space-12);
   }
 }
 
@@ -42,7 +58,12 @@
   }
 
   @include up(lg) {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
+  }
+
+  .cardFeatured & {
+    @include text-h3;
+    @include text-h3-lg(1.3);
   }
 }
 
@@ -54,6 +75,10 @@
   color: var(--text-subtle);
 
   @include text-small;
+
+  .cardFeatured & {
+    color: inherit;
+  }
 
   @include up(lg) {
     font-size: 0.9375rem;
@@ -70,4 +95,8 @@
   color: var(--on-lime);
   background: var(--lime);
   border-radius: var(--radius-full);
+
+  .cardFeatured & {
+    background: var(--surface);
+  }
 }

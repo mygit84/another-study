@@ -89,3 +89,16 @@ svg {
     transform: none;
   }
 }
+
+// Появление при скролле: атрибут ставит хук useReveal, только ниже первого экрана
+[data-reveal] {
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    translate var(--duration-slow) var(--ease-out);
+  transition-delay: calc(var(--reveal-order, 0) * var(--stagger));
+}
+
+[data-reveal='hidden'] {
+  opacity: 0;
+  translate: 0 var(--reveal-shift);
+}

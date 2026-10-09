@@ -53,12 +53,7 @@
     --aurora-dot: rgb(47 93 58 / 14%);
 
     // Декоративные фоны секций (src/components/backgrounds)
-    --bg-grid-line: rgb(23 37 29 / 7%);
-    --bg-grid-cell: rgb(47 93 58 / 9%);
     --bg-ripple: rgb(47 93 58 / 22%);
-    --bg-glow: rgb(214 232 180 / 70%);
-    --bg-glow-warm: rgb(240 135 90 / 55%);
-    --bg-line: rgb(233 239 226 / 7%);
     --radius-sm: 10px;
     --radius-md: 16px;
     --radius-lg: 24px;
@@ -87,8 +82,18 @@
     --space-30: 120px;
     --font-sans: 'Manrope Variable', system-ui, sans-serif;
     --font-display: 'Unbounded Variable', 'Manrope Variable', system-ui, sans-serif;
+
+    // Движение: ease — состояния (hover, вкладки), ease-out — появление, ease-in — уход
     --ease: cubic-bezier(0.2, 0, 0, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
     --duration: 200ms;
+    --duration-slow: 600ms;
+    --stagger: 70ms;
+    --reveal-shift: 16px;
+
+    // Блик за курсором на карточках «Возможностей»
+    --spotlight: rgb(255 255 255 / 70%);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -131,20 +136,22 @@
       --aurora-2: rgb(240 135 90 / 18%);
       --aurora-3: rgb(242 222 142 / 12%);
       --aurora-dot: rgb(233 239 226 / 8%);
-      --bg-grid-line: rgb(233 239 226 / 6%);
-      --bg-grid-cell: rgb(169 209 138 / 9%);
       --bg-ripple: rgb(214 232 180 / 18%);
       --shadow-window: 0 40px 80px -30px rgb(0 0 0 / 70%);
       --shadow-card: 0 30px 60px -30px rgb(0 0 0 / 60%);
       --shadow-pop: 0 20px 40px -20px rgb(0 0 0 / 70%);
       --shadow-pill: 0 10px 30px rgb(0 0 0 / 40%);
       --shadow-header: 0 1px 12px rgb(0 0 0 / 30%);
+      --spotlight: rgb(214 232 180 / 12%);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     :root {
       --duration: 0ms;
+      --duration-slow: 0ms;
+      --stagger: 0ms;
+      --reveal-shift: 0;
     }
   }
 }

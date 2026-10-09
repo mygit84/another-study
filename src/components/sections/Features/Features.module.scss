@@ -1,20 +1,35 @@
+// Бенто (desktop): «План на неделю» — крупная плитка 2×2 с фрагментом недели справа
+// от первой карточки. Порядок на экране совпадает с DOM, поэтому фокус по Tab не прыгает.
 .grid {
   display: grid;
   gap: var(--space-3);
 
   @include up(md) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   @include up(lg) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-5);
   }
 }
 
+.featured {
+  @include up(lg) {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+}
+
 .card {
+  // Цвет иконки, «Открыть в демо» и пояснения; цветные варианты переключают их на цвет текста
+  --card-accent: var(--primary);
+  --card-muted: var(--text-muted);
+
+  position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
   gap: var(--space-2);
   width: 100%;
   height: 100%;
@@ -30,13 +45,50 @@
 
   @include focus-ring;
 
+  // Блик за курсором: координаты пишет moveSpotlight, слой под контентом карточки
+  &::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    content: '';
+    background: radial-gradient(
+      280px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      var(--spotlight),
+      transparent 70%
+    );
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity var(--duration) var(--ease-in);
+  }
+
   &:hover {
     border-color: var(--text);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::before {
+      opacity: 1;
+      transition-timing-function: var(--ease-out);
+    }
   }
 
   @include motion {
     &:hover {
       transform: translateY(-2px);
+    }
+
+    // Иконка чуть поворачивается, стрелка «Открыть в демо» подаётся вперёд
+    &:hover,
+    &:focus-visible {
+      .icon {
+        rotate: -8deg;
+        scale: 1.08;
+      }
+
+      .more svg {
+        translate: var(--space-1) 0;
+      }
     }
   }
 
@@ -45,14 +97,46 @@
     min-height: 220px;
     padding: var(--space-8);
   }
+
+  .featured & {
+    grid-template-rows: auto auto auto 1fr auto;
+  }
+}
+
+.cardLime {
+  color: var(--on-lime);
+  background: var(--lime);
+}
+
+.cardPeach {
+  color: var(--on-peach);
+  background: var(--peach);
+}
+
+.cardLime,
+.cardPeach {
+  --card-accent: currentcolor;
+  --card-muted: currentcolor;
+}
+
+.icon {
+  margin-block-end: var(--space-2);
+  color: var(--card-accent);
+  transition:
+    rotate var(--duration) var(--ease-out),
+    scale var(--duration) var(--ease-out);
 }
 
 .title {
   @include text-h3;
+
+  .featured & {
+    @include text-h3-lg;
+  }
 }
 
 .text {
-  color: var(--text-muted);
+  color: var(--card-muted);
 }
 
 .more {
@@ -60,11 +144,69 @@
   gap: var(--space-1);
   align-items: center;
   font-weight: 800;
-  color: var(--primary);
+  color: var(--card-accent);
 
   @include text-small;
+
+  svg {
+    transition: translate var(--duration) var(--ease-out);
+  }
 
   @include up(lg) {
     font-size: 0.9375rem;
   }
+}
+
+// Фрагмент недели: строки «день — ужин», сегодня выделено
+.peek {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+  margin-block: var(--space-3);
+  padding: var(--space-3);
+  color: var(--text);
+  background: var(--surface);
+  border-radius: var(--radius-md);
+
+  @include up(lg) {
+    margin-block: var(--space-4);
+    padding: var(--space-4);
+  }
+}
+
+.peekRow {
+  display: grid;
+  grid-template-columns: var(--space-8) minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+
+  @include text-small;
+}
+
+.peekRowToday {
+  color: var(--on-contrast);
+  background: var(--contrast);
+}
+
+.peekDay {
+  font-weight: 800;
+}
+
+.peekDish {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.peekTag {
+  padding-inline: var(--space-2);
+  font-weight: 700;
+  color: var(--on-butter);
+  background: var(--butter);
+  border-radius: var(--radius-full);
+
+  @include text-xs;
 }

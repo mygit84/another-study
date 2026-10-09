@@ -41,24 +41,6 @@
   }
 }
 
-.preview {
-  height: 560px;
-  pointer-events: none;
-  user-select: none;
-
-  @include up(md) {
-    height: 520px;
-  }
-
-  @include up(lg) {
-    grid-template:
-      'top top' 64px
-      'safety safety' auto
-      'side main' 1fr
-      / 64px minmax(0, 1fr);
-  }
-}
-
 .topbar {
   display: flex;
   grid-area: top;
@@ -226,15 +208,6 @@
     clip-path: none;
     white-space: normal;
   }
-}
-
-.preview .tabLabel {
-  @include visually-hidden;
-}
-
-.preview .tab {
-  justify-content: center;
-  padding-inline: var(--space-2);
 }
 
 .main {

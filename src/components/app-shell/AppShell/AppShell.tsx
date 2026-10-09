@@ -1,24 +1,10 @@
 import clsx from 'clsx'
-import {
-  Bell,
-  CalendarDays,
-  ChefHat,
-  History,
-  Lightbulb,
-  Search,
-  ShieldCheck,
-  ShoppingBasket,
-  SlidersHorizontal,
-  Sparkles,
-  Sun,
-  User,
-  type LucideIcon,
-} from 'lucide-react'
+import { Bell, Search, ShieldCheck, Sparkles } from 'lucide-react'
 import { useId, useRef, type ComponentType, type KeyboardEvent } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { Toast } from '@/components/ui/Toast'
 import { content } from '@/content/ru'
-import { DemoProvider, useDemo, type AppShellTab } from '@/context/DemoContext'
+import { useDemoActions, useDemoState, type AppShellTab } from '@/context/DemoContext'
 import { AssistantPanel } from '../AssistantPanel'
 import {
   ContextView,
@@ -31,19 +17,11 @@ import {
   WeekView,
 } from '../Views'
 import styles from './AppShell.module.scss'
+import { TAB_ICONS } from './tabIcons'
 
 const t = content.appShell
 
-const TABS: { key: AppShellTab; icon: LucideIcon }[] = [
-  { key: 'today', icon: Sun },
-  { key: 'week', icon: CalendarDays },
-  { key: 'shopping', icon: ShoppingBasket },
-  { key: 'recipes', icon: ChefHat },
-  { key: 'context', icon: SlidersHorizontal },
-  { key: 'history', icon: History },
-  { key: 'learn', icon: Lightbulb },
-  { key: 'profile', icon: User },
-]
+const TABS = Object.keys(TAB_ICONS) as AppShellTab[]
 
 const TAB_BAR: (keyof typeof t.tabBar)[] = ['today', 'week', 'shopping', 'assistant', 'profile']
 
@@ -58,26 +36,10 @@ const VIEWS: Record<AppShellTab, ComponentType> = {
   profile: ProfileView,
 }
 
-export interface AppShellProps {
-  /** preview — статичная витрина без интерактива (aria-hidden + inert) */
-  variant: 'preview' | 'interactive'
-  initialTab?: AppShellTab
-}
-
-/** interactive берёт состояние из внешнего DemoProvider; preview — из собственного. */
-export function AppShell({ variant, initialTab = 'today' }: AppShellProps) {
-  if (variant === 'preview') {
-    return (
-      <DemoProvider initialTab={initialTab} trackEvents={false}>
-        <Shell preview />
-      </DemoProvider>
-    )
-  }
-  return <Shell preview={false} />
-}
-
-function Shell({ preview }: { preview: boolean }) {
-  const { tab, setTab, assistantOpen, setAssistantOpen, toastKey } = useDemo()
+/** Интерактивное демо приложения; состояние — из DemoProvider. */
+export function AppShell() {
+  const { tab, assistantOpen, toastKey } = useDemoState()
+  const { setTab, setAssistantOpen } = useDemoActions()
   const uid = useId()
   const tabRefs = useRef<Partial<Record<AppShellTab, HTMLButtonElement | null>>>({})
   const panelId = `${uid}-panel`
@@ -86,7 +48,7 @@ function Shell({ preview }: { preview: boolean }) {
   const View = VIEWS[tab]
 
   const onTabKey = (e: KeyboardEvent<HTMLDivElement>) => {
-    const idx = TABS.findIndex((x) => x.key === tab)
+    const idx = TABS.indexOf(tab)
     let next = idx
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (idx + 1) % TABS.length
     else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = (idx - 1 + TABS.length) % TABS.length
@@ -94,19 +56,13 @@ function Shell({ preview }: { preview: boolean }) {
     else if (e.key === 'End') next = TABS.length - 1
     else return
     e.preventDefault()
-    const key = TABS[next].key
+    const key = TABS[next]
     setTab(key)
     tabRefs.current[key]?.focus()
   }
 
   return (
-    <div
-      className={clsx(styles.shell, preview && styles.preview)}
-      role={preview ? undefined : 'region'}
-      aria-label={preview ? undefined : t.label}
-      aria-hidden={preview || undefined}
-      inert={preview}
-    >
+    <div className={styles.shell} role="region" aria-label={t.label}>
       <div className={styles.topbar}>
         <span className={styles.brand}>
           <span className={styles.logo}>{content.common.logo}</span>
@@ -115,18 +71,16 @@ function Shell({ preview }: { preview: boolean }) {
           </Badge>
         </span>
         <div className={styles.topActions}>
-          {!preview && (
-            <button
-              type="button"
-              className={styles.assistantToggle}
-              aria-expanded={assistantOpen}
-              aria-controls={assistantId}
-              onClick={() => setAssistantOpen(!assistantOpen)}
-            >
-              <Sparkles size={16} strokeWidth={1.75} aria-hidden="true" />
-              {t.openAssistant}
-            </button>
-          )}
+          <button
+            type="button"
+            className={styles.assistantToggle}
+            aria-expanded={assistantOpen}
+            aria-controls={assistantId}
+            onClick={() => setAssistantOpen(!assistantOpen)}
+          >
+            <Sparkles size={16} strokeWidth={1.75} aria-hidden="true" />
+            {t.openAssistant}
+          </button>
           <span className={styles.topIcon} title={t.search}>
             <Search size={18} strokeWidth={1.75} aria-hidden="true" />
           </span>
@@ -146,41 +100,44 @@ function Shell({ preview }: { preview: boolean }) {
         aria-orientation="vertical"
         onKeyDown={onTabKey}
       >
-        {TABS.map(({ key, icon: Icon }) => (
-          <button
-            key={key}
-            ref={(el) => {
-              tabRefs.current[key] = el
-            }}
-            id={tabId(key)}
-            type="button"
-            role="tab"
-            aria-selected={tab === key}
-            aria-controls={panelId}
-            tabIndex={tab === key ? 0 : -1}
-            className={clsx(styles.tab, tab === key && styles.tabActive)}
-            onClick={() => setTab(key)}
-            title={t.tabs[key]}
-          >
-            <Icon size={18} strokeWidth={1.75} aria-hidden="true" />
-            <span className={styles.tabLabel}>{t.tabs[key]}</span>
-          </button>
-        ))}
+        {TABS.map((key) => {
+          const Icon = TAB_ICONS[key]
+          return (
+            <button
+              key={key}
+              ref={(el) => {
+                tabRefs.current[key] = el
+              }}
+              id={tabId(key)}
+              type="button"
+              role="tab"
+              aria-selected={tab === key}
+              aria-controls={panelId}
+              tabIndex={tab === key ? 0 : -1}
+              className={clsx(styles.tab, tab === key && styles.tabActive)}
+              onClick={() => setTab(key)}
+              title={t.tabs[key]}
+            >
+              <Icon size={18} strokeWidth={1.75} aria-hidden="true" />
+              <span className={styles.tabLabel}>{t.tabs[key]}</span>
+            </button>
+          )
+        })}
       </div>
 
       <div className={styles.main} role="tabpanel" id={panelId} aria-labelledby={tabId(tab)}>
         <div key={tab} className={styles.view}>
           <View />
         </div>
-        {!preview && <Toast message={t.toast} trigger={toastKey} />}
+        <Toast message={t.toast} trigger={toastKey} />
       </div>
 
-      {!preview && <AssistantPanel id={assistantId} />}
+      <AssistantPanel id={assistantId} />
 
       <nav className={styles.tabbar} aria-label={t.tabsLabel}>
         {TAB_BAR.map((key) => {
           const isAssistant = key === 'assistant'
-          const Icon = isAssistant ? Sparkles : TABS.find((x) => x.key === key)!.icon
+          const Icon = isAssistant ? Sparkles : TAB_ICONS[key]
           const active = isAssistant ? assistantOpen : tab === key && !assistantOpen
           return (
             <button

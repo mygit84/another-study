@@ -15,7 +15,7 @@ import {
 import { useId, useState } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { content } from '@/content/ru'
-import { useDemo } from '@/context/DemoContext'
+import { useDemoActions, useDemoState } from '@/context/DemoContext'
 import {
   contextCards,
   dishes,
@@ -69,7 +69,8 @@ function Tags({ tags }: { tags: string[] }) {
 }
 
 export function TodayView() {
-  const { today, replaceMeal, selectDish, setAssistantOpen, selectedDish } = useDemo()
+  const { today, selectedDish } = useDemoState()
+  const { replaceMeal, selectDish, setAssistantOpen } = useDemoActions()
   return (
     <>
       <ViewHead title={t.today.title} subtitle={t.today.subtitle} />
@@ -117,7 +118,8 @@ export function TodayView() {
 }
 
 export function WeekView() {
-  const { selectDish, selectedCell, setAssistantOpen, guests, today } = useDemo()
+  const { selectedCell, guests, today } = useDemoState()
+  const { selectDish, setAssistantOpen } = useDemoActions()
   const days = t.week.days
 
   const dishFor = (day: number, slot: MealSlot): DishId => {
@@ -192,11 +194,12 @@ export function WeekView() {
   )
 }
 
+const TO_BUY = shopping.flatMap((g) => g.items).filter((i) => !('atHome' in i && i.atHome))
+
 export function ShoppingView() {
   const [checked, setChecked] = useState<Set<string>>(new Set())
   const uid = useId()
-  const toBuy = shopping.flatMap((g) => g.items).filter((i) => !('atHome' in i && i.atHome))
-  const remaining = toBuy.filter((i) => !checked.has(i.id)).length
+  const remaining = TO_BUY.filter((i) => !checked.has(i.id)).length
 
   const toggle = (id: string) =>
     setChecked((prev) => {
@@ -241,7 +244,8 @@ export function ShoppingView() {
 const CONTEXT_ICONS = { time: Timer, family: Users, trip: Plane, budget: Wallet }
 
 export function ContextView() {
-  const { guests, setGuests } = useDemo()
+  const { guests } = useDemoState()
+  const { setGuests } = useDemoActions()
   const uid = useId()
   return (
     <>
@@ -344,18 +348,19 @@ export function LearnView() {
   )
 }
 
+const PROFILE_BLOCKS = [
+  { title: t.profile.goals, items: profile.goals, userSet: false },
+  { title: t.profile.tastes, items: profile.tastes, userSet: false },
+  { title: t.profile.restrictions, items: profile.restrictions, userSet: true },
+  { title: t.profile.skills, items: profile.skills, userSet: false },
+]
+
 export function ProfileView() {
-  const blocks = [
-    { title: t.profile.goals, items: profile.goals, userSet: false },
-    { title: t.profile.tastes, items: profile.tastes, userSet: false },
-    { title: t.profile.restrictions, items: profile.restrictions, userSet: true },
-    { title: t.profile.skills, items: profile.skills, userSet: false },
-  ]
   return (
     <>
       <ViewHead title={t.profile.title} />
       <div className={styles.profileGrid}>
-        {blocks.map((b) => (
+        {PROFILE_BLOCKS.map((b) => (
           <div key={b.title} className={styles.profileBlock}>
             <h4 className={styles.groupTitle}>
               {b.title}

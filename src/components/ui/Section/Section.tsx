@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { useRef, type ReactNode } from 'react'
+import { useReveal } from '@/hooks/useReveal'
 import { useSectionView } from '@/hooks/useSectionView'
 import styles from './Section.module.scss'
 
@@ -11,8 +12,6 @@ interface SectionProps {
   children: ReactNode
   /** default — фон страницы, surface — белая полоса, lime — салатовая, deep — тёмная */
   tone?: 'default' | 'surface' | 'lime' | 'deep'
-  /** split — заголовок слева, подзаголовок справа (desktop) */
-  head?: 'stack' | 'split'
   /** wide — контейнер 1280px (демо) */
   wide?: boolean
   /** aside — заголовок слева, контент справа (desktop) */
@@ -29,13 +28,13 @@ export function Section({
   eyebrow,
   children,
   tone = 'default',
-  head = 'stack',
   wide = false,
   layout = 'default',
   background,
   className,
 }: SectionProps) {
   const ref = useRef<HTMLElement>(null)
+  const headRef = useReveal<HTMLElement>()
   useSectionView(ref, id)
   const titleId = `${id}-title`
   return (
@@ -47,7 +46,7 @@ export function Section({
     >
       {background}
       <div className={clsx(styles.inner, wide && styles.wide, layout === 'aside' && styles.aside)}>
-        <header className={clsx(styles.head, head === 'split' && styles.split)}>
+        <header ref={headRef} className={styles.head}>
           <div className={styles.titles}>
             {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
             <h2 id={titleId} className={styles.title}>

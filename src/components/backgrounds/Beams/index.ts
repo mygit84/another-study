@@ -1,1 +1,0 @@
-export { Beams } from './Beams'

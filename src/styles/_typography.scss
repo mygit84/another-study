@@ -45,6 +45,14 @@
   }
 }
 
+// Акцентный h3 (крупные карточки): на desktop между h3 и h2. Подключать после text-h3.
+@mixin text-h3-lg($line-height: 1.2) {
+  @include up(lg) {
+    font-size: 1.75rem;
+    line-height: $line-height;
+  }
+}
+
 @mixin text-lead {
   font-size: 1.0625rem;
   font-weight: 400;

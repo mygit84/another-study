@@ -1,4 +1,7 @@
 .section {
+  // Шкала для параллакса декоративного фона (утилиты parallax-* в tailwind.css)
+  view-timeline: --section block;
+
   @include section-block;
 }
 
@@ -61,22 +64,6 @@
   @include up(lg) {
     gap: var(--space-4);
     margin-block-end: var(--space-12);
-  }
-}
-
-.split {
-  @include up(lg) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4) var(--space-10);
-    align-items: flex-end;
-    justify-content: space-between;
-    max-width: none;
-
-    .subtitle {
-      max-width: 420px;
-      font-size: 1.125rem;
-    }
   }
 }
 

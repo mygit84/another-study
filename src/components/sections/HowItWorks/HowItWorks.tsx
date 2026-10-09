@@ -1,14 +1,16 @@
 import clsx from 'clsx'
 import { Section } from '@/components/ui/Section'
 import { content } from '@/content/ru'
+import { useReveal } from '@/hooks/useReveal'
 import styles from './HowItWorks.module.scss'
 
 export function HowItWorks() {
   const h = content.how
   const last = h.steps.length - 1
+  const listRef = useReveal<HTMLOListElement>({ children: true })
   return (
     <Section id="how" eyebrow={h.eyebrow} title={h.title}>
-      <ol className={styles.steps}>
+      <ol ref={listRef} className={styles.steps}>
         {h.steps.map((step, i) => (
           <li key={step.title} className={clsx(styles.step, i === last && styles.stepAccent)}>
             <span className={styles.num} aria-hidden="true">
