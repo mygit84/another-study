@@ -1,4 +1,4 @@
-# Wellness Agent
+# Ешь, гуляй и спи
 
 Next.js-приложение над двумя агентами. Health Coach составляет wellness-план по задаче, профилю и дневнику. Safety Reviewer проверяет план и возвращает вердикт. Если ревьюер просит правок, коуч переделывает план; всего не больше трёх раундов.
 
@@ -35,6 +35,7 @@ UI → `POST /api/agent/run { task }` → `runHealthAgent(task)` → `{ plan, re
 
 ```
 app/page.tsx                   страница: задача, Run Agent, результат
+app/globals.css                стили на токенах и шрифтах лендинга NutriOS
 app/api/agent/run/route.ts     POST-эндпоинт
 src/agents/healthCoach.ts      промпт и фабрика коуча
 src/agents/safetyReviewer.ts   промпт, Zod-схема ревью и фабрика ревьюера
